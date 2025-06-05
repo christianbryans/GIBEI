@@ -172,6 +172,8 @@
       line-height: 1.1;
       /* Tighter line height */
       color: white;
+      min-height: 150px; /* Set a minimum height to prevent layout shift during typing */
+      text-align: center; /* Ensure the text remains centered within the fixed height */
     }
 
     /* Styling for the typing effect cursor */
@@ -261,7 +263,7 @@
     }
 
     .explore-button {
-      margin-top: 60px;
+      margin-top: 120px;
       /* Added margin top for spacing */
       z-index: 4; /* Ensure button is above backgrounds and overlay */
     }
@@ -272,6 +274,185 @@
       50% { transform: translateY(-5px); } /* Move up slightly */
       100% { transform: translateY(0); }
     }
+
+    /* New styles for Vision and Mission section */
+    .vision-mission-section {
+        padding: 25px 0; /* Reduced padding above and below the section to decrease spacing between sections */
+        background-color: #f4f4f4; /* Light gray background for the page section */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .vision-mission-container {
+        background-color: #fff; /* White background for the card */
+        border-radius: 15px; /* Rounded corners */
+        border: 2px solid #dfdfdf;
+        max-width: 1600px; /* Max width for the container */
+        width: 90%; /* Responsive width */
+        padding: 70px; /* Padding inside the container */
+        display: flex;
+        align-items: center; /* Vertically align content */
+        gap: 80px; /* Space between text and image */
+        position: relative; /* Needed for absolute positioning of pseudo-element */
+        overflow: hidden; /* Hide overflow from pseudo-element */
+    }
+
+    .vision-mission-content {
+        flex: 1; /* Allow text content to take available space */
+        color: #E9E9E9; /* Dark text color */
+        max-width: 50%; /* Limit width of text content */
+    }
+
+    .vision-mission-content h2 {
+        font-family: 'Gilroy-Bold', sans-serif;
+        font-size: 40px; /* Heading font size */
+        margin-bottom: 20px;
+        color: #333; /* Dark heading color */
+    }
+
+    .vision-mission-content p {
+        font-family: 'Manrope', sans-serif;
+        font-size: 20px; /* Paragraph font size */
+        line-height: 1.8; /* Increased line height for readability */
+        margin-bottom: 40px;
+        color: #555; /* Slightly lighter text color */
+    }
+
+    .vision-mission-content ul {
+        list-style: none; /* Remove default list bullets */
+        padding: 0;
+        margin: 0;
+    }
+
+    .vision-mission-content ul li {
+        font-family: 'Manrope', sans-serif;
+        font-size: 18px; /* List item font size */
+        line-height: 1.8; /* Increased line height */
+        margin-bottom: 15px;
+        color: #555; /* Slightly lighter text color */
+        position: relative;
+        padding-left: 30px; /* Space for custom bullet */
+    }
+
+    .vision-mission-content ul li::before {
+        content: '✔'; /* Checkmark icon */
+        color: #AF1F24; /* Red color for checkmark */
+        font-size: 20px; /* Size of checkmark */
+        position: absolute;
+        left: 0;
+        top: 2px; /* Adjust vertical alignment */
+    }
+
+    .vision-mission-image {
+        flex: 1; /* Allow image container to take available space */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative; /* Needed for absolute positioning of background */
+        max-width: 50%; /* Limit width of image container */
+        z-index: 1; /* Ensure image is above background pseudo-element */
+    }
+
+     .vision-mission-image img {
+         max-width: 50%; /* Ensure image fits within its container */
+         height: auto;
+         display: block; /* Remove extra space below image */
+         z-index: 2; /* Ensure image is above the background */
+         position: relative; /* Ensure z-index works */
+     }
+
+     /* Pseudo-element for the light gray background area */
+     .vision-mission-container::after {
+         content: '';
+         display: block;
+         position: absolute;
+         bottom: 0;
+         right: 0;
+         width: 45%; /* Adjust width as needed */
+         height: 37%; /* Adjust height as needed */
+         /* background-color: #e9e9e9; Light gray color */
+         border-bottom-right-radius: 15px; /* Match container border radius */
+         border-top-left-radius: 30px; /* Match container border radius */
+         z-index: 0; /* Place behind content */
+     }
+
+     /* Styles for the new About Section */
+     .about-image {
+         flex: 1; /* Allow image container to take available space */
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         max-width: 50%; /* Limit width of image container */
+     }
+
+     .about-image img {
+         max-width: 100%; /* Ensure image fits within its container */
+         height: auto;
+         display: block;
+         border-radius: 10px; /* Add some border radius to the image */
+     }
+
+     .about-content {
+         flex: 1; /* Allow text content to take available space */
+         color: #333; /* Dark text color */
+         max-width: 50%; /* Limit width of text content */
+         padding-left: 40px; /* Add space between image and text */
+     }
+
+     .about-content h2 {
+         font-family: 'Gilroy-Bold', sans-serif;
+         font-size: 40px;
+         margin-bottom: 20px;
+         color: #333;
+     }
+
+     .about-content p {
+         font-family: 'Manrope', sans-serif;
+         font-size: 20px;
+         line-height: 1.8;
+         margin-bottom: 30px;
+         color: #555;
+     }
+
+     .about-button {
+         padding: 14px 30px;
+         background-color: #AF1F24;
+         color: white;
+         border: none;
+         cursor: pointer;
+         font-size: 18px;
+         font-weight: bold;
+         border-radius: 10px;
+         transition: background-color 0.3s ease;
+     }
+
+     .about-button:hover {
+         background-color: #8b1a1f; /* Slightly darker red on hover */
+     }
+
+     /* Styles for the Intro Section */
+     .intro-section {
+         text-align: center; /* Center the text */
+         padding: 40px 20px; /* Add padding top/bottom and some side padding */
+         background-color: #f4f4f4; /* Light background color */
+     }
+
+     .intro-section h2 {
+         font-family: 'Gilroy-Bold', sans-serif;
+         font-size: 48px;
+         color: #AF1F24; /* Red color from logo */
+         margin-bottom: 15px;
+     }
+
+     .intro-section p {
+         font-family: 'Manrope', sans-serif;
+         font-size: 20px;
+         color: #555; /* Dark gray color */
+         line-height: 1.6;
+         max-width: 1000px; /* Limit width of the paragraph */
+         margin: 0 auto; /* Center the paragraph */
+     }
   </style>
 </head>
 
@@ -283,7 +464,7 @@
       <img src="src/assets/logo.png" alt="GIBEI Telkom University Logo">
     </div>
     <div class="nav-links">
-      <a href="#">Home</a>
+      <a href="#" class="active">Home</a>
       <a href="#">About</a>
       <a href="#">Events</a>
       <a href="#">Contact</a>
@@ -311,6 +492,48 @@
         <button>Explore Our Comunity</button>
       </div>
     </div>
+  </div>
+
+  <!-- New intro section above Vision and Mission -->
+  <div class="intro-section">
+      <h2>GIBEI Telkom University</h2>
+      <p>Welcome to the Telkom University Investment Gallery! We analyze the Indonesian Capital Market, offering insights, research, and events. Join us to become skilled investors and traders.</p>
+  </div>
+
+  <!-- New Vision and Mission Section -->
+  <div class="vision-mission-section">
+      <div class="vision-mission-container">
+          <div class="vision-mission-content">
+              <h2>Vision</h2>
+              <p>To build a high-value organization to provide education and cultivating community who can create significant impact within the industry</p>
+
+              <h2>Mission</h2>
+              <ul>
+                  <li>Provide an experience to upgrade a hard and soft skill set to thrive in the industry</li>
+                  <li>Provide quality networks and opportunities with professional within the industry</li>
+                  <li>Provide an experience to upgrade a hard skill set to enter the industry</li>
+              </ul>
+          </div>
+          <div class="vision-mission-image">
+              <!-- Replace with actual image tag for the large G logo -->
+              <img src="src/assets/glogo.png" alt="Large G logo"> <!-- Assuming you have an image file for this -->
+          </div>
+      </div>
+  </div>
+
+  <!-- New About Section -->
+  <div class="vision-mission-section"> <!-- Reusing the section class for consistent background/padding -->
+      <div class="vision-mission-container"> <!-- Reusing the container class for consistent size/border -->
+          <div class="about-image">
+              <!-- Placeholder for the image -->
+              <img src="src/assets/aboutus.png" alt="About Us">
+          </div>
+          <div class="about-content">
+              <h2>Galeri Investasi Bursa Efek Indonesia Telkom University</h2>
+              <p>Serves as a platform to introduce the Capital Market and explore career aspirations in the Financial Industry at an early stage to the Telkom University academic community.</p>
+              <button class="about-button">GIBEI TEL-U</button>
+          </div>
+      </div>
   </div>
 
   <script>
