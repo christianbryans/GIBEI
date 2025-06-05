@@ -46,17 +46,14 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 18px 80px;
-      /* Increased padding for larger navbar */
+      padding: 18px 200px; /* Increased left and right padding */
       background-color: #fff;
-      /* Solid white background */
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       z-index: 10;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      /* Slightly stronger shadow */
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
     .navbar .logo img {
@@ -132,17 +129,19 @@
       position: relative;
       width: 100%;
       height: 100vh;
-      background: url('src/assets/bg.png') no-repeat center center/cover;
+      background-size: cover;
+      background-position: center center;
       display: flex;
       justify-content: center;
       align-items: center;
       text-align: center;
       padding-top: 80px;
-      /* Increased padding top for fixed navbar */
       box-sizing: border-box;
+      overflow: hidden;
     }
 
-    .hero-section::before {
+    /* Overlay */
+    .hero-section::after {
       content: '';
       position: absolute;
       top: 0;
@@ -150,12 +149,12 @@
       right: 0;
       bottom: 0;
       background-color: rgba(0, 0, 0, 0.65);
-      /* Slightly darker overlay */
+      z-index: 1; /* Ensure overlay is above background */
     }
 
     .hero-content {
       position: relative;
-      z-index: 1;
+      z-index: 2; /* Ensure content is above overlay and backgrounds */
       max-width: 900px;
       /* Increased max-width */
       padding: 0 20px;
@@ -187,7 +186,6 @@
 
     /* Cursor blinking animation */
     @keyframes blink-caret {
-
       from,
       to {
         border-color: transparent
@@ -219,7 +217,9 @@
       font-size: 18px;
       font-weight: bold;
       border-radius: 10px;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.8s ease;
+      /* Keep existing animation or remove if conflicts with JS */
+      animation: pulse-y 1.5s ease-in-out infinite; /* Apply animation */
     }
 
     .hero-content .explore-button button:hover {
@@ -228,16 +228,20 @@
 
     .partner-section {
       margin-top: 50px;
+      /* Increased space above partner section */
       text-align: center;
       color: white;
       position: relative;
-      z-index: 1;
+      z-index: 2; /* Ensure partner section is above backgrounds and overlay */
     }
 
     .partner-section .official-partner {
       font-size: 16px;
+      /* Adjusted font size */
       font-weight: 500;
+      /* Medium weight */
       margin-bottom: 20px;
+      /* Increased margin */
       color: rgba(255, 255, 255, 0.85);
     }
 
@@ -246,16 +250,27 @@
       justify-content: center;
       align-items: center;
       gap: 40px;
+      /* Increased gap */
     }
 
     .partner-logos img {
       max-height: 65px;
+      /* Adjusted size */
       filter: none;
       opacity: 1;
     }
 
     .explore-button {
-      margin-top: 60px; /* Added margin top for spacing */
+      margin-top: 60px;
+      /* Added margin top for spacing */
+      z-index: 4; /* Ensure button is above backgrounds and overlay */
+    }
+
+    /* Keyframes for the vertical pulse animation */
+    @keyframes pulse-y {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-5px); } /* Move up slightly */
+      100% { transform: translateY(0); }
     }
   </style>
 </head>
@@ -328,6 +343,35 @@
       type(); // Start typing when the DOM is fully loaded
     });
 
+    // Background image slider script
+    const heroSection = document.querySelector('.hero-section');
+    const backgroundImages = [
+      'src/assets/bg.png',
+      'src/assets/bg2.jpg', // Add more image paths here
+      'src/assets/bg3.png', // Add more image paths here
+    ];
+    let currentImageIndex = 0;
+
+    function changeBackground() {
+      // Increment index and loop back if necessary
+      currentImageIndex = (currentImageIndex + 1) % backgroundImages.length;
+      const nextImageUrl = backgroundImages[currentImageIndex];
+
+      // Create a temporary image to pre-load the next background
+      const tempImg = new Image();
+      tempImg.src = nextImageUrl;
+
+      tempImg.onload = () => {
+        // Once the next image is loaded, change the background
+        heroSection.style.backgroundImage = `url('${nextImageUrl}')`;
+      };
+    }
+
+    // Change background every 5 seconds (adjust as needed)
+    setInterval(changeBackground, 5000);
+
+    // Initial background set by CSS, start slider after a delay if needed
+    // Or call changeBackground() here if you want JS to set the first image too.
   </script>
 
 </body>
