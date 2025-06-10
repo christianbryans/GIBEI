@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact GIBEI Telkom University</title>
+    <!-- Add preload links for background images -->
+    <link rel="preload" as="image" href="src/assets/bg.png">
+    <link rel="preload" as="image" href="src/assets/bg2.jpg">
+    <link rel="preload" as="image" href="src/assets/bg3.png">
+    <style>
+        /* Add font imports here if using external fonts */
+        @font-face {
+            font-family: 'Gilroy-Bold';
+            src: url('fonts/Gilroy-Bold.woff') format('woff');
+            /* Adjust path if necessary */
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Manrope';
+            src: url('fonts/Manrope.woff') format('woff');
+            /* Adjust path if necessary */
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Manrope';
+            src: url('fonts/Manrope-SemiBold.woff') format('woff');
+            /* Adjust path if necessary for semibold */
+            font-weight: 600;
+            /* Semibold weight */
+            font-style: normal;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Manrope', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Global heading styles */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Gilroy-Bold', sans-serif;
+        }
+
+        /* Global paragraph styles */
+        p {
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 200px;
+            background-color: #fff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .logo img {
+            height: 45px;
+            vertical-align: middle;
+        }
+
+        .navbar .nav-links a {
+            margin: 0 20px;
+            text-decoration: none;
+            color: #333;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s ease, font-weight 0.3s ease;
+            position: relative;
+        }
+
+        .navbar .nav-links a:hover,
+        .navbar .nav-links a.active {
+            color: #AF1F24;
+            font-weight: bold;
+        }
+
+        /* Underline animation */
+        .navbar .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            height: 2px;
+            background-color: #AF1F24;
+            width: 0;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .navbar .nav-links a:hover::after,
+        .navbar .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .navbar .nav-button button {
+            padding: 15px 25px;
+            background-color: #AF1F24;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-family: 'Manrope', sans-serif;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar .nav-button button:hover {
+            background-color: #AF1F24;
+        }
+
+        /* Add hamburger menu styles */
+        .hamburger-menu {
+            display: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 100;
+        }
+
+        .hamburger-menu span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: #333;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-menu.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-menu.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Media Queries for Responsive Design */
+        @media screen and (max-width: 1024px) {
+            .navbar {
+                padding: 18px 50px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .nav-button {
+                display: none;
+            }
+
+            .hamburger-menu {
+                display: block;
+                order: 2;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(255, 255, 255, 0.98);
+                padding: 80px 20px 20px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s ease;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links .mobile-button {
+                display: block;
+                margin-top: 20px;
+            }
+
+            .navbar .nav-links a {
+                margin: 15px 0;
+                font-size: 18px;
+                color: #333;
+            }
+
+            .navbar .nav-links a:hover,
+            .navbar .nav-links a.active {
+                color: #AF1F24;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .navbar {
+                padding: 12px 15px;
+            }
+
+            .navbar .logo img {
+                height: 35px;
+            }
+        }
+
+        /* Add mobile button styles */
+        .mobile-button {
+            display: none;
+        }
+
+        .mobile-button button {
+            padding: 15px 25px;
+            background-color: #AF1F24;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-family: 'Manrope', sans-serif;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+            width: 200px;
+        }
+
+        .mobile-button button:hover {
+            background-color: #8a191d;
+        }
+
+        @media screen and (max-width: 768px) {
+            .mobile-button {
+                display: block;
+                margin-top: 20px;
+            }
+
+            .mobile-button button {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+
+        /* New: Main Content Area Wrapper */
+        .main-content-area {
+            max-width: 1200px; /* Example max width, adjust as needed */
+            margin: 0 auto; /* Center the content */
+            padding: 0 200px; /* Side padding to align with navbar content */
+        }
+
+        /* Hero Image for Contact Page */
+        .hero-image-contact {
+            max-width: 1200px;
+            margin: 150px auto 50px auto;
+            padding: 0 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-color: transparent;
+            width: auto;
+        }
+
+        .hero-image-contact img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: block;
+        }
+
+        /* Contact Section Specific Styles */
+        .contact-section {
+            /* padding: 0 200px 50px; Remove, now handled by main-content-area */
+            padding-top: 0; /* No need for padding-top if image provides spacing */
+            padding-bottom: 50px;
+            background-color: #fff;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .contact-text-content {
+            flex: 1;
+            min-width: 300px;
+            margin-right: 50px;
+            padding-top: 50px; /* Align with form inputs */
+        }
+
+        .contact-text-content p {
+            font-size: 20px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .contact-text-content h2 {
+            font-size: 48px;
+            color: #AF1F24;
+            line-height: 1.2;
+            margin-bottom: 0;
+        }
+
+        .contact-form-container {
+            flex: 2;
+            min-width: 400px;
+            background-color: #f9f9f9;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+            margin-top: 50px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-row .contact-form-group {
+            flex: 1;
+            margin-bottom: 0; /* Reset margin from default group */
+        }
+
+        .contact-form-group {
+            margin-bottom: 20px;
+        }
+
+        .contact-form-group label {
+            display: block;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .contact-form-group input[type="text"],
+        .contact-form-group input[type="email"],
+        .contact-form-group textarea {
+            width: calc(100% - 24px);
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 16px;
+            color: #333;
+            background-color: #fff;
+            transition: border-color 0.3s ease;
+        }
+
+        .contact-form-group input[type="text"]::placeholder,
+        .contact-form-group input[type="email"]::placeholder,
+        .contact-form-group textarea::placeholder {
+            color: #777;
+        }
+
+        .contact-form-group input[type="text"]:focus,
+        .contact-form-group input[type="email"]:focus,
+        .contact-form-group textarea:focus {
+            border-color: #AF1F24;
+            outline: none;
+        }
+
+        .contact-form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-form-container button {
+            background-color: #AF1F24;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Manrope', sans-serif;
+            font-weight: bold;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+            width: 100%; /* Full width button */
+        }
+
+        .contact-form-container button:hover {
+            background-color: #8a191d;
+        }
+
+        @media screen and (max-width: 1024px) {
+            .main-content-area {
+                padding: 0 50px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .contact-section {
+                flex-direction: column;
+                /* padding: 20px; Remove, now handled by main-content-area */
+                align-items: center;
+            }
+
+            .main-content-area {
+                padding: 0 20px; /* Match navbar padding */
+            }
+
+            .contact-text-content {
+                margin-right: 0;
+                text-align: center;
+                padding-top: 20px;
+                min-width: unset;
+                width: 100%;
+            }
+
+            .contact-form-container {
+                min-width: unset;
+                width: 100%;
+                margin-top: 30px;
+                padding: 20px;
+            }
+
+            .contact-text-content h2 {
+                font-size: 38px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .form-row .contact-form-group {
+                margin-bottom: 20px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .main-content-area {
+                padding: 0 15px; /* Match navbar padding */
+            }
+
+            .contact-text-content h2 {
+                font-size: 32px;
+            }
+        }
+
+        /* Footer Styles (copied from index.html) */
+        .footer {
+            background-color: #1a1a1a;
+            color: #f4f4f4;
+            padding: 60px 200px 20px;
+            font-family: 'Manrope', sans-serif;
+            line-height: 1.8;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-right: 30px;
+        }
+
+        .footer-section:last-child {
+            margin-right: 0;
+        }
+
+        .footer-section h3 {
+            font-family: 'Gilroy-Bold', sans-serif;
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .footer-section p,
+        .footer-section ul {
+            font-size: 16px;
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #AF1F24;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            font-size: 14px;
+            color: #888;
+        }
+
+        @media screen and (max-width: 1024px) {
+            .footer {
+                padding: 40px 50px 20px;
+            }
+
+            .footer-section {
+                min-width: 200px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .footer-section {
+                margin-right: 0;
+                margin-bottom: 30px;
+                min-width: unset;
+                width: 100%;
+            }
+
+            .footer-section:last-child {
+                margin-bottom: 0;
+            }
+
+            .footer-section ul {
+                text-align: center;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .footer {
+                padding: 30px 20px 15px;
+            }
+
+            .footer-section h3 {
+                font-size: 18px;
+            }
+
+            .footer-section p,
+            .footer-section ul {
+                font-size: 14px;
+            }
+
+            .footer-bottom {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="src/assets/logo.png" alt="GIBEI Telkom University Logo">
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="events.html">Events</a>
+            <a href="contact.html" class="active">Contact</a>
+            <div class="mobile-button">
+                <button onclick="window.location.href='index.html#explore'">Explore GIBEI</button>
+            </div>
+        </div>
+        <div class="nav-button">
+            <button onclick="window.location.href='index.html#explore'">Explore GIBEI</button>
+        </div>
+        <div class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="hero-image-contact main-content-area">
+        <img src="src/assets/telu.png" alt="Telkom University">
+    </div>
+
+    <div class="contact-section main-content-area">
+        <div class="contact-text-content">
+            <p>Your Insights Matter</p>
+            <h2>Send Us a Message</h2>
+        </div>
+        <div class="contact-form-container">
+            <form action="mailto:gibeitelu@gmail.com" method="post" enctype="text/plain">
+                <div class="form-row">
+                    <div class="contact-form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Name">
+                    </div>
+                    <div class="contact-form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Email">
+                    </div>
+                </div>
+                <div class="contact-form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Enter Your Message"></textarea>
+                </div>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h3>GIBEI TEL-U</h3>
+                <p>Lt 1 FEB, Gedung Miossu FEB<br>11.00-15.00 WIB</p>
+                <p>CP Line : @559eietg</p>
+            </div>
+            <div class="footer-section links">
+                <h3>Media</h3>
+                <ul>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                </ul>
+            </div>
+            <div class="footer-section navigation">
+                <h3>Navigation</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 GIBEI TELKOM UNIVERSITY
+        </div>
+    </div>
+
+    <script>
+        // Hamburger menu functionality
+        const hamburger = document.querySelector('.hamburger-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Close menu when clicking on a link
+        const navItems = document.querySelectorAll('.nav-links a');
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+    </script>
+    <script src="footer.js"></script>
+</body>
+
+</html> 

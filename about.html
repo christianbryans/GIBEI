@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About GIBEI Telkom University</title>
+    <!-- Add preload links for background images (copied from index.html, though not strictly needed for about page, but keeps consistency) -->
+    <link rel="preload" as="image" href="src\assets\bg.png">
+    <link rel="preload" as="image" href="src/assets/bg2.jpg">
+    <link rel="preload" as="image" href="src/assets/bg3.png">
+    <style>
+        /* Add font imports here if using external fonts */
+        @font-face {
+            font-family: 'Gilroy-Bold';
+            src: url('fonts/Gilroy-Bold.woff') format('woff');
+            /* Adjust path if necessary */
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Manrope';
+            src: url('fonts/Manrope.woff') format('woff');
+            /* Adjust path if necessary */
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Manrope';
+            src: url('fonts/Manrope-SemiBold.woff') format('woff');
+            /* Adjust path if necessary for semibold */
+            font-weight: 600;
+            /* Semibold weight */
+            font-style: normal;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Manrope', sans-serif;
+            color: #333;
+            /* Changed to dark for about page content */
+            line-height: 1.6;
+            /* Consistent line height */
+            overflow-x: hidden;
+            /* Prevent horizontal scroll */
+        }
+
+        /* Global heading styles */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Gilroy-Bold', sans-serif;
+        }
+
+        /* Global paragraph styles */
+        p {
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 200px;
+            background-color: #fff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .logo img {
+            height: 45px;
+            /* Adjusted logo size */
+            vertical-align: middle;
+        }
+
+        .navbar .nav-links a {
+            margin: 0 20px;
+            /* Adjusted margin */
+            text-decoration: none;
+            color: #333;
+            /* Darker link color */
+            font-family: 'Manrope', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            /* Adjusted font size */
+            transition: color 0.3s ease, font-weight 0.3s ease;
+            /* Add transition for font-weight */
+            position: relative;
+            /* Needed for underline pseudo-element */
+        }
+
+        .navbar .nav-links a:hover,
+        .navbar .nav-links a.active {
+            /* Style for active link */
+            color: #AF1F24;
+            font-weight: bold;
+            /* Make bold on hover/active */
+        }
+
+        /* Underline animation */
+        .navbar .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            /* Position below the text */
+            height: 2px;
+            background-color: #AF1F24;
+            /* Red underline color */
+            width: 0;
+            /* Initial width is 0 */
+            transition: width 0.3s ease-in-out;
+            /* Animation transition */
+        }
+
+        .navbar .nav-links a:hover::after,
+        .navbar .nav-links a.active::after {
+            /* Full width on hover/active */
+            width: 100%;
+        }
+
+        .navbar .nav-button button {
+            padding: 15px 25px;
+            /* Adjusted padding */
+            background-color: #AF1F24;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-family: 'Manrope', sans-serif;
+            font-weight: bold;
+            font-size: 16px;
+            /* Slightly larger font size for button */
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar .nav-button button:hover {
+            background-color: #AF1F24;
+        }
+
+        /* Styles for the "Our Journey So Far" section */
+        .journey-section {
+            padding: 120px 200px 50px;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .journey-images {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            margin: 90px 0;
+        }
+
+        .journey-images img {
+            max-width: 30%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .journey-images img:nth-child(2) {
+            max-width: 40%;
+            transform: scale(1.1);
+            z-index: 1;
+        }
+
+        .journey-images img:nth-child(1),
+        .journey-images img:nth-child(3) {
+            max-width: 25%;
+        }
+
+        .journey-section p {
+            font-family: 'Manrope', sans-serif;
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .journey-section h2 {
+            font-family: 'Gilroy-Bold', sans-serif;
+            font-size: 40px;
+            color: #AF1F24;
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+
+        .journey-section h3 {
+            font-family: 'Gilroy-Bold', sans-serif;
+            font-size: 24px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .journey-section p:not(:first-child) {
+            margin-top: 10px;
+        }
+
+        /* New styles for Vision and Mission section (reusing classes from index.html) */
+        .vision-mission-section {
+            padding: 50px 0;
+            /* Reduced padding above and below the section to decrease spacing between sections */
+            background-color: #f4f4f4;
+            /* Light gray background for the page section */
+            padding: 20px 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .vision-mission-container {
+            background-color: #fff;
+            /* White background for the card */
+            border-radius: 15px;
+            /* Rounded corners */
+            border: 2px solid #dfdfdf;
+            max-width: 1600px;
+            /* Max width for the container */
+            width: 90%;
+            /* Responsive width */
+            padding: 70px;
+            /* Padding inside the container */
+            display: flex;
+            align-items: center;
+            /* Vertically align content */
+            gap: 80px;
+            /* Space between text and image */
+            position: relative;
+            /* Needed for absolute positioning of pseudo-element */
+            overflow: hidden;
+            /* Hide overflow from pseudo-element */
+        }
+
+        .vision-mission-content {
+            flex: 1;
+            /* Allow text content to take available space */
+            color: #E9E9E9;
+            /* Dark text color */
+            max-width: 50%;
+            /* Limit width of text content */
+        }
+
+        .vision-mission-content h2 {
+            font-size: 40px;
+            /* Heading font size */
+            margin-bottom: 20px;
+            color: #333;
+            /* Dark heading color */
+        }
+
+        .vision-mission-content p {
+            font-size: 20px;
+            /* Paragraph font size */
+            line-height: 1.8;
+            /* Increased line height for readability */
+            margin-bottom: 40px;
+            color: #555;
+            /* Slightly lighter text color */
+        }
+
+        .vision-mission-content ul {
+            list-style: none;
+            /* Remove default list bullets */
+            padding: 0;
+            margin: 0;
+        }
+
+        .vision-mission-content ul li {
+            font-size: 18px;
+            /* List item font size */
+            line-height: 1.8;
+            /* Increased line height */
+            margin-bottom: 15px;
+            color: #555;
+            /* Slightly lighter text color */
+            position: relative;
+            padding-left: 30px;
+            /* Space for custom bullet */
+        }
+
+        .vision-mission-content ul li::before {
+            content: '✔';
+            /* Checkmark icon */
+            color: #AF1F24;
+            /* Red color for checkmark */
+            font-size: 20px;
+            /* Size of checkmark */
+            position: absolute;
+            left: 0;
+            top: 2px;
+            /* Adjust vertical alignment */
+        }
+
+        .vision-mission-image {
+            flex: 1;
+            /* Allow image container to take available space */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            /* Needed for absolute positioning of background */
+            max-width: 50%;
+            /* Limit width of image container */
+            z-index: 1;
+            /* Ensure image is above background pseudo-element */
+        }
+
+        .vision-mission-image img {
+            max-width: 50%;
+            /* Ensure image fits within its container */
+            height: auto;
+            display: block;
+            /* Remove extra space below image */
+            z-index: 2;
+            /* Ensure image is above the background */
+            position: relative;
+            /* Ensure z-index works */
+        }
+
+        /* Pseudo-element for the light gray background area */
+        .vision-mission-container::after {
+            content: '';
+            display: block;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 45%;
+            /* Adjust width as needed */
+            height: 37%;
+            /* Adjust height as needed */
+            /* background-color: #e9e9e9; Light gray color */
+            border-bottom-right-radius: 15px;
+            /* Match container border radius */
+            border-top-left-radius: 30px;
+            /* Match container border radius */
+            z-index: 0;
+            /* Place behind content */
+        }
+
+        /* Styles for the new About Section (from index.html, reused for consistency) */
+        .about-image {
+            flex: 1;
+            /* Allow image container to take available space */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 50%;
+            /* Limit width of image container */
+        }
+
+        .about-image img {
+            max-width: 100%;
+            /* Ensure image fits within its container */
+            height: auto;
+            display: block;
+            border-radius: 10px;
+            /* Add some border radius to the image */
+        }
+
+        .about-content {
+            flex: 1;
+            /* Allow text content to take available space */
+            color: #333;
+            /* Dark text color */
+            max-width: 50%;
+            /* Limit width of text content */
+            padding-left: 40px;
+            /* Add space between image and text */
+        }
+
+        .about-content h2 {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .about-content p {
+            font-size: 20px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .about-button {
+            padding: 14px 30px;
+            background-color: #AF1F24;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            font-family: 'Manrope', sans-serif;
+            font-weight: bold;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .about-button:hover {
+            background-color: #8b1a1f;
+            /* Slightly darker red on hover */
+        }
+
+        /* Styles for "Our Divisions" section */
+        .divisions-section {
+            padding: 50px 200px;
+            background-color: #fff;
+            color: #333;
+            text-align: left;
+        }
+
+        .divisions-section p {
+            font-family: 'Manrope', sans-serif;
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .divisions-section h2 {
+            font-family: 'Gilroy-Bold', sans-serif;
+            font-size: 40px;
+            color: #AF1F24;
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+
+        .divisions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .division-card {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+            cursor: pointer;
+        }
+
+        .division-card:hover {
+            transform: translateY(-5px);
+            border: 2px solid #AF1F24;
+            box-shadow: 0 8px 20px rgba(175, 31, 36, 0.1);
+        }
+
+        .division-card:hover .icon img {
+            filter: brightness(0) saturate(100%) invert(11%) sepia(100%) saturate(5000%) hue-rotate(350deg) brightness(90%) contrast(100%);
+        }
+
+        .division-card .icon {
+            margin-bottom: 15px;
+        }
+
+        .division-card .icon img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            transition: filter 0.3s ease;
+        }
+
+        .division-card h3 {
+            font-family: 'Gilroy-Bold', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .division-card p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #777;
+        }
+
+
+        /* Add hamburger menu styles */
+        .hamburger-menu {
+            display: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 100;
+        }
+
+        .hamburger-menu span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: #333;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-menu.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-menu.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Media Queries for Responsive Design */
+        @media screen and (max-width: 1024px) {
+            .navbar {
+                padding: 18px 50px;
+            }
+
+            .journey-section,
+            .vision-mission-section,
+            .divisions-section {
+                padding: 20px 50px;
+            }
+
+            .journey-section h2,
+            .vision-mission-content h2,
+            .about-content h2,
+            .divisions-section h2 {
+                font-size: 32px;
+            }
+
+            .journey-section p,
+            .journey-section h3,
+            .vision-mission-content p,
+            .vision-mission-content ul li,
+            .about-content p,
+            .division-card h3,
+            .division-card p {
+                font-size: 18px;
+            }
+
+            .vision-mission-container {
+                padding: 40px;
+                gap: 40px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .nav-button {
+                display: none;
+            }
+
+            .hamburger-menu {
+                display: block;
+                order: 2;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(255, 255, 255, 0.98);
+                padding: 80px 20px 20px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s ease;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links .mobile-button {
+                display: block;
+                margin-top: 20px;
+            }
+
+            .navbar .nav-links a {
+                margin: 15px 0;
+                font-size: 18px;
+                color: #333;
+            }
+
+            .navbar .nav-links a:hover,
+            .navbar .nav-links a.active {
+                color: #AF1F24;
+            }
+
+            .journey-section,
+            .vision-mission-section,
+            .divisions-section {
+                padding: 20px;
+            }
+
+            .journey-images {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .journey-images img {
+                max-width: 80%;
+            }
+
+            .vision-mission-container {
+                flex-direction: column;
+                padding: 30px 20px;
+                gap: 30px;
+            }
+
+            .vision-mission-content,
+            .vision-mission-image,
+            .about-content,
+            .about-image {
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .vision-mission-content h2,
+            .about-content h2,
+            .divisions-section h2 {
+                font-size: 28px;
+                text-align: center;
+            }
+
+            .vision-mission-content p,
+            .vision-mission-content ul li,
+            .about-content p {
+                font-size: 16px;
+                text-align: center;
+            }
+
+            .vision-mission-content ul li {
+                padding-left: 0;
+                padding-top: 25px;
+            }
+
+            .vision-mission-content ul li::before {
+                left: 50%;
+                transform: translateX(-50%);
+                top: 0;
+            }
+
+            .vision-mission-image img {
+                max-width: 80%;
+                margin: 0 auto;
+            }
+
+            .about-content {
+                padding-left: 0;
+                text-align: center;
+            }
+
+            .about-button {
+                margin: 0 auto;
+                display: block;
+            }
+
+            .about-image img {
+                max-width: 80%;
+                margin: 0 auto;
+            }
+
+            .divisions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .division-card {
+                padding: 20px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .navbar {
+                padding: 12px 15px;
+            }
+
+            .navbar .logo img {
+                height: 35px;
+            }
+
+            .journey-section,
+            .vision-mission-section,
+            .divisions-section {
+                padding: 15px;
+            }
+
+            .journey-section h2,
+            .vision-mission-content h2,
+            .about-content h2,
+            .divisions-section h2 {
+                font-size: 24px;
+            }
+
+            .journey-section p,
+            .journey-section h3,
+            .vision-mission-content p,
+            .vision-mission-content ul li,
+            .about-content p,
+            .division-card h3,
+            .division-card p {
+                font-size: 14px;
+            }
+
+            .journey-images img {
+                max-width: 90%;
+            }
+
+            .vision-mission-image img {
+                max-width: 90%;
+            }
+
+            .about-image img {
+                max-width: 90%;
+            }
+        }
+
+        /* Add mobile button styles */
+        .mobile-button {
+            display: none;
+        }
+
+        .mobile-button button {
+            padding: 15px 25px;
+            background-color: #AF1F24;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-family: 'Manrope', sans-serif;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+            width: 200px;
+        }
+
+        .mobile-button button:hover {
+            background-color: #8a191d;
+        }
+
+        @media screen and (max-width: 768px) {
+            .mobile-button {
+                display: block;
+                margin-top: 20px;
+            }
+
+            .mobile-button button {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="src/assets/logo.png" alt="GIBEI Telkom University Logo">
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html" class="active">About</a>
+            <a href="events.html">Events</a>
+            <a href="contact.html">Contact</a>
+            <div class="mobile-button">
+                <button onclick="window.location.href='index.html#explore'">Explore GIBEI</button>
+            </div>
+        </div>
+        <div class="nav-button">
+            <button onclick="window.location.href='index.html#explore'">Explore GIBEI</button>
+        </div>
+        <div class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="journey-section">
+        <div class="journey-images">
+            <img src="src/assets/bg.png" alt="About Image 1">
+            <img src="src/assets/bg2.jpg" alt="About Image 2">
+            <img src="src/assets/bg3.png" alt="About Image 3">
+        </div>
+        <p>Our Journey So Far</p>
+        <h2>Galeri Investasi Bursa Efek Indonesia<br>Telkom University</h2>
+        <h3>Founded and Evolving</h3>
+        <p>Established in 2014, the Indonesia Stock Exchange Investment Gallery (GIBEI) at Telkom University began as an
+            initiative by the Faculty of Economics and Business to provide practical access for the academic community,
+            including students, alumni, faculty, and staff, to engage directly with the capital market. Over the years,
+            GIBEI Tel-U has matured into a thriving investment hub, facilitating real transactions with a cumulative
+            volume reaching billions of rupiah.</p>
+        <h3>Relaunch and Strategic Partnership</h3>
+        <p>In November 2017, GIBEI Tel-U was revitalized through a strategic relaunch in partnership with MNC Sekuritas.
+            This collaboration marked a pivotal step in accelerating the development of capital market education on
+            campus, enhancing both the quality of learning and hands-on investment opportunities for students.</p>
+    </div>
+
+    <!-- Let's Know Our Divisions Section -->
+    <div class="divisions-section">
+        <p>Let's Know</p>
+        <h2>Our Divisions</h2>
+        <div class="divisions-grid">
+            <div class="division-card">
+                <div class="icon">
+                    <img src="src/assets/icon/Deputy Treasurer.svg" alt="Deputy Treasurer Icon">
+                </div>
+                <h3>Deputy Treasurer</h3>
+                <p>Handles financial planning and budgeting to ensure smooth operations.</p>
+            </div>
+            <div class="division-card">
+                <div class="icon">
+                    <img src="src/assets/icon/Deputy Administration.svg" alt="Deputy Administration Icon">
+                </div>
+                <h3>Deputy Administration</h3>
+                <p>Oversees internal organizational processes and documentation.</p>
+            </div>
+            <div class="division-card">
+                <div class="icon">
+                    <img src="src/assets/icon/Deputy HCSP.svg" alt="Deputy HCSP Icon">
+                </div>
+                <h3>Deputy HCSP</h3>
+                <p>Focuses on human resource development and strategic planning.</p>
+            </div>
+            <div class="division-card">
+                <div class="icon">
+                    <img src="src/assets/icon/Public Relation.svg" alt="Public Relation Icon">
+                </div>
+                <h3>Public Relation</h3>
+                <p>Builds communication strategies and partnerships with external stakeholders.</p>
+            </div>
+            <div class="division-card">
+                <div class="icon">
+                    <img src="src/assets/icon/Event Affairs.svg" alt="Event Affairs Icon">
+                </div>
+                <h3>Event Affairs</h3>
+                <p>Organizes seminars, workshops, and other educational capital market events.</p>
+            </div>
+            <div class="division-card">
+                <div class="icon">
+                    <img src="src/assets/icon/Digital Media Creative.svg" alt="Digital Media Creative Icon">
+                </div>
+                <h3>Digital Media Creative</h3>
+                <p>Manages visual design and creates digital content to increase awareness.</p>
+            </div>
+            <div class="division-card">
+                <div class="icon">
+                    <img src="src/assets/icon/Equity Analyst.svg" alt="Equity Analyst Icon">
+                </div>
+                <h3>Equity Analyst</h3>
+                <p>Conducts analysis on market trends, stocks, and economic data.</p>
+            </div>
+            <div class="division-card">
+                <div class="icon">
+                    <img src="src/assets/icon/Research & Analyst.svg" alt="Research & Analyst Icon">
+                </div>
+                <h3>Research & Analyst</h3>
+                <p>Supports internal research and develops insights to guide our initiatives.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Hamburger menu functionality (copied from index.html)
+        const hamburger = document.querySelector('.hamburger-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Close menu when clicking on a link
+        const navItems = document.querySelectorAll('.nav-links a');
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+    </script>
+    <script src="footer.js"></script>
+</body>
+
+</html>

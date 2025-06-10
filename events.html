@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - GIBEI Telkom University</title>
+    <!-- Add preload links for background images -->
+    <link rel="preload" as="image" href="src/assets/bg.png">
+    <link rel="preload" as="image" href="src/assets/bg2.jpg">
+    <link rel="preload" as="image" href="src/assets/bg3.png">
+    <style>
+        /* Add font imports here if using external fonts */
+        @font-face {
+            font-family: 'Gilroy-Bold';
+            src: url('fonts/Gilroy-Bold.woff') format('woff');
+            /* Adjust path if necessary */
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Manrope';
+            src: url('fonts/Manrope.woff') format('woff');
+            /* Adjust path if necessary */
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Manrope';
+            src: url('fonts/Manrope-SemiBold.woff') format('woff');
+            /* Adjust path if necessary for semibold */
+            font-weight: 600;
+            /* Semibold weight */
+            font-style: normal;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Manrope', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Global heading styles */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Gilroy-Bold', sans-serif;
+        }
+
+        /* Global paragraph styles */
+        p {
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 200px;
+            background-color: #fff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .logo img {
+            height: 45px;
+            vertical-align: middle;
+        }
+
+        .navbar .nav-links a {
+            margin: 0 20px;
+            text-decoration: none;
+            color: #333;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s ease, font-weight 0.3s ease;
+            position: relative;
+        }
+
+        .navbar .nav-links a:hover,
+        .navbar .nav-links a.active {
+            color: #AF1F24;
+            font-weight: bold;
+        }
+
+        /* Underline animation */
+        .navbar .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            height: 2px;
+            background-color: #AF1F24;
+            width: 0;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .navbar .nav-links a:hover::after,
+        .navbar .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .navbar .nav-button button {
+            padding: 15px 25px;
+            background-color: #AF1F24;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-family: 'Manrope', sans-serif;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar .nav-button button:hover {
+            background-color: #AF1F24;
+        }
+
+        /* Add hamburger menu styles */
+        .hamburger-menu {
+            display: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 100;
+        }
+
+        .hamburger-menu span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: #333;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-menu.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-menu.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Media Queries for Responsive Design */
+        @media screen and (max-width: 1024px) {
+            .navbar {
+                padding: 18px 50px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .nav-button {
+                display: none;
+            }
+
+            .hamburger-menu {
+                display: block;
+                order: 2;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(255, 255, 255, 0.98);
+                padding: 80px 20px 20px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s ease;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links .mobile-button {
+                display: block;
+                margin-top: 20px;
+            }
+
+            .navbar .nav-links a {
+                margin: 15px 0;
+                font-size: 18px;
+                color: #333;
+            }
+
+            .navbar .nav-links a:hover,
+            .navbar .nav-links a.active {
+                color: #AF1F24;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .navbar {
+                padding: 12px 15px;
+            }
+
+            .navbar .logo img {
+                height: 35px;
+            }
+        }
+
+        /* Add mobile button styles */
+        .mobile-button {
+            display: none;
+        }
+
+        .mobile-button button {
+            padding: 15px 25px;
+            background-color: #AF1F24;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-family: 'Manrope', sans-serif;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+            width: 200px;
+        }
+
+        .mobile-button button:hover {
+            background-color: #8a191d;
+        }
+
+        @media screen and (max-width: 768px) {
+            .mobile-button {
+                display: block;
+                margin-top: 20px;
+            }
+
+            .mobile-button button {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+
+        /* New: Main Content Area Wrapper */
+        .main-content-area {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 200px;
+        }
+
+        /* Event Card Specific Styles */
+        .events-section {
+            padding-top: 120px;
+            padding-bottom: 50px;
+        }
+
+        .event-card-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            margin-bottom: 40px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .event-poster {
+            flex-shrink: 0;
+            width: 500px;
+            height: 600px;
+            overflow: hidden;
+            border-radius: 15px 0 0 15px;
+        }
+
+        .event-poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .event-details {
+            padding: 40px 50px 40px 0;
+            flex-grow: 1;
+        }
+
+        .event-details h2 {
+            font-size: 42px;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .event-details p {
+            font-size: 20px;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 35px;
+        }
+
+        .event-date {
+            display: inline-block;
+            background-color: #e0e0e0;
+            color: #555;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 600;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-size: 18px;
+        }
+
+        @media screen and (max-width: 1024px) {
+            .event-card-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .event-poster {
+                width: 100%;
+                height: 500px;
+                border-radius: 15px 15px 0 0;
+            }
+
+            .event-details {
+                padding: 30px;
+                text-align: center;
+            }
+
+            .event-details h2 {
+                font-size: 36px;
+            }
+
+            .event-details p {
+                font-size: 18px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .events-section {
+                padding-top: 100px;
+                padding-bottom: 30px;
+            }
+            .event-details h2 {
+                font-size: 28px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .events-section {
+                padding-top: 80px;
+            }
+            .event-poster {
+                max-height: 300px;
+            }
+            .event-details h2 {
+                font-size: 24px;
+            }
+            .event-details p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="src/assets/logo.png" alt="GIBEI Telkom University Logo">
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="events.html" class="active">Events</a>
+            <a href="contact.html">Contact</a>
+            <div class="mobile-button">
+                <button onclick="window.location.href='index.html#explore'">Explore GIBEI</button>
+            </div>
+        </div>
+        <div class="nav-button">
+            <button onclick="window.location.href='index.html#explore'">Explore GIBEI</button>
+        </div>
+        <div class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="events-section main-content-area">
+        <div class="event-card-container">
+            <div class="event-poster">
+                <img src="src\assets\F101.png" alt="Finance 101: Equity Research & Valuation Series Poster">
+            </div>
+            <div class="event-details">
+                <h2>Finance 101: Equity Research & Valuation Series</h2>
+                <p>Join a 2-day intensive session with Muhammad Rizqy Al Farisi, FMVA – Investment Banking at Danareksa. Learn the fundamentals of equity research, financial modeling, and valuation. Get expert mentorship, official certificate, session recordings, and valuable Excel templates.</p>
+                <span class="event-date">Sabtu, 3 Mei 2025</span>
+            </div>
+        </div>
+
+        <div class="event-card-container">
+            <div class="event-poster">
+                <img src="src\assets\F102.png" alt="Break Into Finance">
+            </div>
+            <div class="event-details">
+                <h2>Break Into Finance</h2>
+                <p>Break the Limits, Step Into Finance” bersama para pakar industri keuangan. Dapatkan 6 poin TAK, E-Certificate, dan free snacks!</p>
+                <span class="event-date">Jumat, 13 Juni 2025</span>
+            </div>
+        </div>
+        <!-- More event cards can go here -->
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Hamburger menu functionality
+        const hamburger = document.querySelector('.hamburger-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Close menu when clicking on a link
+        const navItems = document.querySelectorAll('.nav-links a');
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+    </script>
+    <script src="footer.js"></script>
+</body>
+
+</html> 
