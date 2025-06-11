@@ -346,15 +346,33 @@
             /* Place behind content */
         }
 
-        /* Styles for the new About Section (from index.html, reused for consistency) */
+        /* Styles for the new About Section */
+        .about-section {
+            display: flex; /* Make it a flex container */
+            justify-content: center; /* Center content horizontally */
+            align-items: center; /* Center content vertically */
+            padding: 50px 200px; /* Default padding for desktop */
+            background-color: #f9f9f9; /* Example background color */
+        }
+
+        .about-container {
+            display: flex; /* Make it a flex container */
+            align-items: center; /* Align items vertically */
+            gap: 80px; /* Space between image and text */
+            max-width: 1200px; /* Limit overall width */
+            width: 100%; /* Responsive width */
+            padding: 40px; /* Inner padding */
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
         .about-image {
             flex: 1;
             /* Allow image container to take available space */
             display: flex;
             justify-content: center;
             align-items: center;
-            max-width: 50%;
-            /* Limit width of image container */
         }
 
         .about-image img {
@@ -371,8 +389,6 @@
             /* Allow text content to take available space */
             color: #333;
             /* Dark text color */
-            max-width: 50%;
-            /* Limit width of text content */
             padding-left: 40px;
             /* Add space between image and text */
         }
@@ -606,6 +622,11 @@
                 padding: 20px;
             }
 
+            .about-section {
+                padding: 20px; /* Adjusted to reduce side padding on mobile */
+                flex-direction: column; /* Ensure main section also stacks vertically */
+            }
+
             .journey-images {
                 flex-direction: column;
                 align-items: center;
@@ -620,6 +641,12 @@
                 flex-direction: column;
                 padding: 30px 20px;
                 gap: 30px;
+            }
+
+            .about-section .about-container {
+                flex-direction: column; /* Changed to column for mobile */
+                align-items: center; /* Center items when stacked */
+                gap: 0; /* Set gap to 0 for mobile */
             }
 
             .vision-mission-content,
@@ -671,7 +698,9 @@
             }
 
             .about-image img {
-                max-width: 80%;
+                max-width: 100%;
+                width: 100%;
+                object-fit: contain; /* Ensure image scales without cropping */
                 margin: 0 auto;
             }
 
@@ -699,6 +728,11 @@
                 padding: 15px;
             }
 
+            .about-section {
+                padding: 15px; /* Adjusted to reduce side padding on smaller mobile screens */
+                flex-direction: column; /* Ensure main section also stacks vertically */
+            }
+
             .journey-section h2,
             .vision-mission-content h2,
             .about-content h2,
@@ -724,8 +758,21 @@
                 max-width: 90%;
             }
 
+            .about-section .about-container {
+                flex-direction: column; /* Changed to column for mobile */
+                align-items: center; /* Center items when stacked */
+                gap: 0; /* Set gap to 0 for mobile */
+            }
+
+            .about-image {
+                max-width: 100%;
+                width: 100%;
+            }
+
             .about-image img {
-                max-width: 90%;
+                max-width: 100%;
+                width: 100%;
+                object-fit: contain; /* Ensure image scales without cropping */
             }
         }
 
