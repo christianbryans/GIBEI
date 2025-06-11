@@ -825,13 +825,13 @@
       </div>
 
       <div class="explore-button">
-        <button>Explore Our Comunity</button>
+        <button id="exploreCommunityBtn">Explore Our Comunity</button>
       </div>
     </div>
   </div>
 
   <!-- New intro section above Vision and Mission -->
-  <div class="intro-section">
+  <div class="intro-section" id="introSection">
       <h2>GIBEI Telkom University</h2>
       <p>Welcome to the Telkom University Investment Gallery! We analyze the Indonesian Capital Market, offering insights, research, and events. Join us to become skilled investors and traders.</p>
   </div>
@@ -1006,6 +1006,13 @@
       } else {
           console.error('About section not found.');
       }
+    });
+
+    // Smooth scroll for "Explore Our Community" button
+    document.getElementById('exploreCommunityBtn').addEventListener('click', function() {
+        document.getElementById('introSection').scrollIntoView({
+            behavior: 'smooth'
+        });
     });
   </script>
 
