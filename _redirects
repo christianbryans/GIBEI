@@ -1,0 +1,13 @@
+# Redirect all API calls to Netlify functions
+/api/* /.netlify/functions/:splat 200
+
+# Serve static HTML files directly
+/about /about.html 200
+/contact /contact.html 200
+/events /events.html 200
+/internship /internship.html 200
+/division /division.html 200
+/login /login.html 200
+
+# Fallback to index.html for any other routes
+/* /index.html 200

@@ -1,11 +1,16 @@
 [build]
 functions = "functions"
-publish = "dist"
-command = "npm run build"
+publish = "."
 
 [[redirects]]
 from = "/api/*"
 to = "/.netlify/functions/:splat"
+status = 200
+
+# Handle SPA routing - redirect all routes to index.html
+[[redirects]]
+from = "/*"
+to = "/index.html"
 status = 200
 
 [functions]
