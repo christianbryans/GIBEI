@@ -879,33 +879,108 @@
         }
 
         function createConfetti() {
-            const colors = ['#AF1F24', '#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1'];
-            const confettiCount = 50;
+            const colors = ['#AF1F24', '#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#FF1493', '#00FF7F', '#FF4500', '#9932CC', '#20B2AA'];
+            const confettiCount = 150; // Lebih banyak confetti
+            const shapes = ['circle', 'square', 'triangle'];
 
-            for (let i = 0; i < confettiCount; i++) {
-                const confetti = document.createElement('div');
-                confetti.style.position = 'fixed';
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.top = '-10px';
-                confetti.style.width = '10px';
-                confetti.style.height = '10px';
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.pointerEvents = 'none';
-                confetti.style.zIndex = '9999';
-                confetti.style.borderRadius = '50%';
-                
-                document.body.appendChild(confetti);
+            // Buat beberapa gelombang confetti untuk efek yang lebih ramai
+            for (let wave = 0; wave < 3; wave++) {
+                setTimeout(() => {
+                    for (let i = 0; i < confettiCount / 3; i++) {
+                        const confetti = document.createElement('div');
+                        const shape = shapes[Math.floor(Math.random() * shapes.length)];
+                        const size = Math.random() * 8 + 6; // Ukuran bervariasi 6-14px
+                        
+                        confetti.style.position = 'fixed';
+                        confetti.style.left = Math.random() * 100 + 'vw';
+                        confetti.style.top = '-20px';
+                        confetti.style.width = size + 'px';
+                        confetti.style.height = size + 'px';
+                        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                        confetti.style.pointerEvents = 'none';
+                        confetti.style.zIndex = '9999';
+                        
+                        // Bentuk berbeda-beda
+                        if (shape === 'circle') {
+                            confetti.style.borderRadius = '50%';
+                        } else if (shape === 'triangle') {
+                            confetti.style.width = '0';
+                            confetti.style.height = '0';
+                            confetti.style.borderLeft = size/2 + 'px solid transparent';
+                            confetti.style.borderRight = size/2 + 'px solid transparent';
+                            confetti.style.borderBottom = size + 'px solid ' + colors[Math.floor(Math.random() * colors.length)];
+                            confetti.style.backgroundColor = 'transparent';
+                        }
+                        // square tetap default (kotak)
+                        
+                        document.body.appendChild(confetti);
 
-                const animation = confetti.animate([
-                    { transform: 'translateY(-10px) rotate(0deg)', opacity: 1 },
-                    { transform: `translateY(100vh) rotate(${Math.random() * 360}deg)`, opacity: 0 }
-                ], {
-                    duration: Math.random() * 2000 + 1000,
-                    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-                });
+                        // Animasi yang lebih kompleks dengan gerakan horizontal
+                        const horizontalMovement = (Math.random() - 0.5) * 200; // Gerakan kiri-kanan
+                        const rotationEnd = Math.random() * 720 + 360; // Rotasi lebih banyak
+                        
+                        const animation = confetti.animate([
+                            { 
+                                transform: 'translateY(-20px) translateX(0px) rotate(0deg)', 
+                                opacity: 1 
+                            },
+                            { 
+                                transform: `translateY(50vh) translateX(${horizontalMovement/2}px) rotate(${rotationEnd/2}deg)`, 
+                                opacity: 0.8,
+                                offset: 0.5
+                            },
+                            { 
+                                transform: `translateY(120vh) translateX(${horizontalMovement}px) rotate(${rotationEnd}deg)`, 
+                                opacity: 0 
+                            }
+                        ], {
+                            duration: Math.random() * 4000 + 3000, // 3-7 detik (lebih lama)
+                            easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                        });
 
-                animation.onfinish = () => confetti.remove();
+                        animation.onfinish = () => confetti.remove();
+                    }
+                }, wave * 200); // Delay antar gelombang
             }
+            
+            // Tambahan: confetti yang jatuh dari samping
+            setTimeout(() => {
+                for (let i = 0; i < 30; i++) {
+                    const confetti = document.createElement('div');
+                    const size = Math.random() * 6 + 4;
+                    
+                    confetti.style.position = 'fixed';
+                    confetti.style.left = Math.random() > 0.5 ? '-10px' : '100vw';
+                    confetti.style.top = Math.random() * 50 + 'vh';
+                    confetti.style.width = size + 'px';
+                    confetti.style.height = size + 'px';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.pointerEvents = 'none';
+                    confetti.style.zIndex = '9999';
+                    confetti.style.borderRadius = '50%';
+                    
+                    document.body.appendChild(confetti);
+
+                    const startX = confetti.style.left === '-10px' ? -10 : window.innerWidth + 10;
+                    const endX = confetti.style.left === '-10px' ? window.innerWidth + 10 : -10;
+                    
+                    const animation = confetti.animate([
+                        { 
+                            transform: `translateX(0px) translateY(0px) rotate(0deg)`, 
+                            opacity: 1 
+                        },
+                        { 
+                            transform: `translateX(${endX - startX}px) translateY(${Math.random() * 100 + 50}px) rotate(${Math.random() * 360}deg)`, 
+                            opacity: 0 
+                        }
+                    ], {
+                        duration: Math.random() * 3000 + 2000,
+                        easing: 'ease-out'
+                    });
+
+                    animation.onfinish = () => confetti.remove();
+                }
+            }, 500);
         }
 
         // Allow Enter key to trigger status check

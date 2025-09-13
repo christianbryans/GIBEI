@@ -47,6 +47,7 @@
             /* Consistent line height */
             overflow-x: hidden;
             /* Prevent horizontal scroll */
+            background-color: #f8f9fa;
         }
 
         /* Global heading styles */
@@ -141,7 +142,7 @@
         }
 
         .navbar .nav-button button:hover {
-            background-color: #AF1F24;
+            background-color: #8a191d;
         }
 
         /* Styles for the "Our Journey So Far" section */
@@ -149,6 +150,49 @@
             padding: 120px 200px 50px;
             background-color: #fff;
             color: #333;
+        }
+
+        /* About Page Header */
+        .about-header {
+            background: linear-gradient(135deg, #AF1F24 0%, #8a191d 100%);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('src/assets/bg.png') center/cover;
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .about-header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .about-header h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .about-header p {
+            font-size: 20px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .journey-images {
@@ -203,147 +247,6 @@
 
         .journey-section p:not(:first-child) {
             margin-top: 10px;
-        }
-
-        /* New styles for Vision and Mission section (reusing classes from index.html) */
-        .vision-mission-section {
-            padding: 50px 0;
-            /* Reduced padding above and below the section to decrease spacing between sections */
-            background-color: #f4f4f4;
-            /* Light gray background for the page section */
-            padding: 20px 200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .vision-mission-container {
-            background-color: #fff;
-            /* White background for the card */
-            border-radius: 15px;
-            /* Rounded corners */
-            border: 2px solid #dfdfdf;
-            max-width: 1600px;
-            /* Max width for the container */
-            width: 90%;
-            /* Responsive width */
-            padding: 70px;
-            /* Padding inside the container */
-            display: flex;
-            align-items: center;
-            /* Vertically align content */
-            gap: 80px;
-            /* Space between text and image */
-            position: relative;
-            /* Needed for absolute positioning of pseudo-element */
-            overflow: hidden;
-            /* Hide overflow from pseudo-element */
-        }
-
-        .vision-mission-content {
-            flex: 1;
-            /* Allow text content to take available space */
-            color: #E9E9E9;
-            /* Dark text color */
-            max-width: 50%;
-            /* Limit width of text content */
-        }
-
-        .vision-mission-content h2 {
-            font-size: 40px;
-            /* Heading font size */
-            margin-bottom: 20px;
-            color: #333;
-            /* Dark heading color */
-        }
-
-        .vision-mission-content p {
-            font-size: 20px;
-            /* Paragraph font size */
-            line-height: 1.8;
-            /* Increased line height for readability */
-            margin-bottom: 40px;
-            color: #555;
-            /* Slightly lighter text color */
-        }
-
-        .vision-mission-content ul {
-            list-style: none;
-            /* Remove default list bullets */
-            padding: 0;
-            margin: 0;
-        }
-
-        .vision-mission-content ul li {
-            font-size: 18px;
-            /* List item font size */
-            line-height: 1.8;
-            /* Increased line height */
-            margin-bottom: 15px;
-            color: #555;
-            /* Slightly lighter text color */
-            position: relative;
-            padding-left: 30px;
-            /* Space for custom bullet */
-        }
-
-        .vision-mission-content ul li::before {
-            content: '✔';
-            /* Checkmark icon */
-            color: #AF1F24;
-            /* Red color for checkmark */
-            font-size: 20px;
-            /* Size of checkmark */
-            position: absolute;
-            left: 0;
-            top: 2px;
-            /* Adjust vertical alignment */
-        }
-
-        .vision-mission-image {
-            flex: 1;
-            /* Allow image container to take available space */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            /* Needed for absolute positioning of background */
-            max-width: 50%;
-            /* Limit width of image container */
-            z-index: 1;
-            /* Ensure image is above background pseudo-element */
-        }
-
-        .vision-mission-image img {
-            max-width: 50%;
-            /* Ensure image fits within its container */
-            height: auto;
-            display: block;
-            /* Remove extra space below image */
-            z-index: 2;
-            /* Ensure image is above the background */
-            position: relative;
-            /* Ensure z-index works */
-        }
-
-        /* Pseudo-element for the light gray background area */
-        .vision-mission-container::after {
-            content: '';
-            display: block;
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 45%;
-            /* Adjust width as needed */
-            height: 37%;
-            /* Adjust height as needed */
-            /* background-color: #e9e9e9; Light gray color */
-            border-bottom-right-radius: 15px;
-            /* Match container border radius */
-            border-top-left-radius: 30px;
-            /* Match container border radius */
-            z-index: 0;
-            /* Place behind content */
         }
 
         /* Styles for the new About Section */
@@ -543,6 +446,14 @@
                 padding: 20px 50px;
             }
 
+            .about-header h1 {
+                font-size: 36px;
+            }
+
+            .about-header p {
+                font-size: 18px;
+            }
+
             .journey-section h2,
             .vision-mission-content h2,
             .about-content h2,
@@ -567,6 +478,10 @@
         }
 
         @media screen and (max-width: 768px) {
+            body {
+                margin-top: 90px;
+            }
+            
             .navbar {
                 padding: 15px 20px;
             }
@@ -620,6 +535,18 @@
             .vision-mission-section,
             .divisions-section {
                 padding: 20px;
+            }
+
+            .about-header {
+                padding: 100px 0 60px;
+            }
+
+            .about-header h1 {
+                font-size: 32px;
+            }
+
+            .about-header p {
+                font-size: 16px;
             }
 
             .about-section {
@@ -714,6 +641,10 @@
         }
 
         @media screen and (max-width: 480px) {
+            body {
+                margin-top: 75px;
+            }
+            
             .navbar {
                 padding: 12px 15px;
             }
@@ -726,6 +657,14 @@
             .vision-mission-section,
             .divisions-section {
                 padding: 15px;
+            }
+
+            .about-header {
+                padding: 80px 0 40px;
+            }
+
+            .about-header h1 {
+                font-size: 28px;
             }
 
             .about-section {
@@ -837,6 +776,14 @@
             <span></span>
         </div>
     </nav>
+
+    <!-- About Header -->
+    <div class="about-header">
+        <div class="about-header-content">
+            <h1>About GIBEI</h1>
+            <p>Learn about our journey, mission, and vision in shaping the future of investment education at Telkom University.</p>
+        </div>
+    </div>
 
     <div class="journey-section">
         <div class="journey-images">
