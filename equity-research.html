@@ -98,77 +98,6 @@
             font-weight: bold;
         }
 
-        /* Dropdown Styles */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-btn {
-            margin: 0 20px;
-            text-decoration: none;
-            color: #333;
-            font-family: 'Manrope', sans-serif;
-            font-weight: 500;
-            font-size: 16px;
-            transition: color 0.3s ease, font-weight 0.3s ease;
-            position: relative;
-            cursor: pointer;
-            background: none;
-            border: none;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .dropdown-btn:hover,
-        .dropdown.active .dropdown-btn {
-            color: #AF1F24;
-            font-weight: bold;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: white;
-            min-width: 200px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            z-index: 1000;
-            padding: 10px 0;
-            margin-top: 10px;
-        }
-
-        .dropdown.active .dropdown-content {
-            display: block;
-        }
-
-        .dropdown-content a {
-            color: #333;
-            padding: 12px 20px;
-            text-decoration: none;
-            display: block;
-            font-size: 14px;
-            margin: 0;
-            transition: background-color 0.3s ease;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #f8f9fa;
-            color: #AF1F24;
-        }
-
-        .dropdown-arrow {
-            font-size: 12px;
-            transition: transform 0.3s ease;
-        }
-
-        .dropdown.active .dropdown-arrow {
-            transform: rotate(180deg);
-        }
-
         /* Underline animation */
         .navbar .nav-links a::after {
             content: '';
@@ -539,56 +468,6 @@
                 color: #AF1F24;
             }
 
-            /* Mobile dropdown styles */
-            .dropdown {
-                margin: 15px 0;
-            }
-
-            .dropdown-btn {
-                margin: 0;
-                font-size: 18px;
-                justify-content: center;
-            }
-
-            .dropdown-content {
-                position: static;
-                display: none;
-                background-color: transparent;
-                box-shadow: none;
-                padding: 0;
-                margin-top: 10px;
-            }
-
-            .dropdown.show .dropdown-content {
-                display: block;
-            }
-
-            .dropdown-content a {
-                margin: 10px 0;
-                padding: 8px 0;
-                font-size: 16px;
-                text-align: center;
-                background-color: transparent;
-            }
-
-            .dropdown-content a:hover {
-                background-color: transparent;
-                color: #AF1F24;
-            }
-
-            .dropdown {
-                width: 100%;
-            }
-
-            .dropdown-content {
-                position: static;
-                display: block;
-                box-shadow: none;
-                background: #f8f9fa;
-                margin: 10px 0;
-                border-radius: 8px;
-            }
-
             .research-header {
                 padding: 100px 0 60px;
             }
@@ -701,16 +580,8 @@
         <div class="nav-links">
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
-            <div class="dropdown">
-                <button class="dropdown-btn">
-                    Portfolio
-                    <span class="dropdown-arrow">▼</span>
-                </button>
-                <div class="dropdown-content">
-                    <a href="events.html">Events</a>
-                    <a href="equity-research.html" class="active">Equity Research</a>
-                </div>
-            </div>
+            <a href="events.html">Events</a>
+            <a href="equity-research.html" class="active">Research</a>
             <a href="contact.html">Contact</a>
             <div class="mobile-button">
                 <button onclick="window.location.href='internship.html'">Internship</button>
@@ -914,36 +785,20 @@
     <div id="footer-placeholder"></div>
 
     <script>
-        // Hamburger menu functionality
-        const hamburger = document.querySelector('.hamburger-menu');
-        const navLinks = document.querySelector('.nav-links');
-        
-        // Dropdown functionality
-        const dropdown = document.querySelector('.dropdown');
-        const dropdownBtn = document.querySelector('.dropdown-btn');
-
-        if (dropdown && dropdownBtn) {
-            dropdownBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                dropdown.classList.toggle('show');
-            });
-
-            // Close dropdown when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!dropdown.contains(e.target)) {
-                    dropdown.classList.remove('show');
-                }
-            });
-
-            // Close dropdown when hamburger menu is clicked
-            if (hamburger) {
-                hamburger.addEventListener('click', function() {
-                    dropdown.classList.remove('show');
-                });
-            }
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hamburger menu functionality
+            const hamburger = document.querySelector('.hamburger-menu');
+            const navLinks = document.querySelector('.nav-links');
+            
+        // Function to close mobile menu
+        function closeMobileMenu() {
+            navLinks.classList.remove('active');
+            hamburger.classList.remove('active');
         }
 
-        hamburger.addEventListener('click', () => {
+        // Toggle hamburger menu
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
             navLinks.classList.toggle('active');
             hamburger.classList.toggle('active');
         });
@@ -951,21 +806,31 @@
         // Close menu when clicking outside
         document.addEventListener('click', (e) => {
             if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
-                navLinks.classList.remove('active');
-                hamburger.classList.remove('active');
+                closeMobileMenu();
             }
         });
 
-        // Close menu when clicking on a link
+        // Close menu immediately when clicking on navigation links
         const navItems = document.querySelectorAll('.nav-links a');
         navItems.forEach(item => {
-            item.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                hamburger.classList.remove('active');
+            item.addEventListener('click', (e) => {
+                // Close menu immediately without delay
+                closeMobileMenu();
             });
         });
 
-        // Research filtering functionality
+        // Close menu when clicking on mobile button
+        const mobileButton = document.querySelector('.mobile-button button');
+        if (mobileButton) {
+            mobileButton.addEventListener('click', (e) => {
+                closeMobileMenu();
+            });
+        }
+
+        // Prevent menu from closing when clicking inside nav-links area (but not on links)
+        navLinks.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });        // Research filtering functionality
         const filterBtns = document.querySelectorAll('.filter-btn');
         const researchCards = document.querySelectorAll('.research-card');
 
@@ -998,6 +863,8 @@
         fontAwesome.rel = 'stylesheet';
         fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css';
         document.head.appendChild(fontAwesome);
+        
+        }); // Close DOMContentLoaded
     </script>
     <script src="footer.js"></script>
 </body>
