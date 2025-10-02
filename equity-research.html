@@ -790,80 +790,94 @@
             const hamburger = document.querySelector('.hamburger-menu');
             const navLinks = document.querySelector('.nav-links');
             
-        // Function to close mobile menu
-        function closeMobileMenu() {
-            navLinks.classList.remove('active');
-            hamburger.classList.remove('active');
-        }
-
-        // Toggle hamburger menu
-        hamburger.addEventListener('click', (e) => {
-            e.stopPropagation();
-            navLinks.classList.toggle('active');
-            hamburger.classList.toggle('active');
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
-                closeMobileMenu();
+            // Function to close mobile menu
+            function closeMobileMenu() {
+                if (navLinks && hamburger) {
+                    navLinks.classList.remove('active');
+                    hamburger.classList.remove('active');
+                }
             }
-        });
 
-        // Close menu immediately when clicking on navigation links
-        const navItems = document.querySelectorAll('.nav-links a');
-        navItems.forEach(item => {
-            item.addEventListener('click', (e) => {
-                // Close menu immediately without delay
-                closeMobileMenu();
-            });
-        });
+            // Ensure elements exist before adding event listeners
+            if (hamburger && navLinks) {
+                // Toggle hamburger menu
+                hamburger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    navLinks.classList.toggle('active');
+                    hamburger.classList.toggle('active');
+                });
 
-        // Close menu when clicking on mobile button
-        const mobileButton = document.querySelector('.mobile-button button');
-        if (mobileButton) {
-            mobileButton.addEventListener('click', (e) => {
-                closeMobileMenu();
-            });
-        }
-
-        // Prevent menu from closing when clicking inside nav-links area (but not on links)
-        navLinks.addEventListener('click', (e) => {
-            e.stopPropagation();
-        });        // Research filtering functionality
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const researchCards = document.querySelectorAll('.research-card');
-
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Remove active class from all buttons
-                filterBtns.forEach(b => b.classList.remove('active'));
-                // Add active class to clicked button
-                btn.classList.add('active');
-
-                const filter = btn.getAttribute('data-filter');
-
-                researchCards.forEach(card => {
-                    if (filter === 'all') {
-                        card.style.display = 'block';
-                    } else {
-                        const categories = card.getAttribute('data-category');
-                        if (categories.includes(filter)) {
-                            card.style.display = 'block';
-                        } else {
-                            card.style.display = 'none';
-                        }
+                // Close menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                        closeMobileMenu();
                     }
                 });
-            });
-        });
 
-        // Add Font Awesome for icons
-        const fontAwesome = document.createElement('link');
-        fontAwesome.rel = 'stylesheet';
-        fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css';
-        document.head.appendChild(fontAwesome);
-        
+                // Close menu immediately when clicking on navigation links
+                const navItems = document.querySelectorAll('.nav-links a');
+                navItems.forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        // Prevent default briefly to ensure close happens first
+                        e.preventDefault();
+                        
+                        // Close menu immediately
+                        closeMobileMenu();
+                        
+                        // Navigate after a short delay to ensure menu closes
+                        setTimeout(() => {
+                            window.location.href = item.href;
+                        }, 50);
+                    });
+                });
+
+                // Close menu when clicking on mobile button
+                const mobileButton = document.querySelector('.mobile-button button');
+                if (mobileButton) {
+                    mobileButton.addEventListener('click', (e) => {
+                        closeMobileMenu();
+                    });
+                }
+
+                // Prevent menu from closing when clicking inside nav-links area (but not on links)
+                navLinks.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+            }
+
+            // Research filtering functionality
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const researchCards = document.querySelectorAll('.research-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+
+                    const filter = btn.getAttribute('data-filter');
+
+                    researchCards.forEach(card => {
+                        if (filter === 'all') {
+                            card.style.display = 'block';
+                        } else {
+                            const categories = card.getAttribute('data-category');
+                            if (categories.includes(filter)) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        }
+                    });
+                });
+            });
+
+            // Add Font Awesome for icons
+            const fontAwesome = document.createElement('link');
+            fontAwesome.rel = 'stylesheet';
+            fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css';
+            document.head.appendChild(fontAwesome);
         }); // Close DOMContentLoaded
     </script>
     <script src="footer.js"></script>
