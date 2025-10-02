@@ -123,6 +123,76 @@
             background-color: #8a191d;
         }
 
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-btn {
+            background: none;
+            border: none;
+            color: #333;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 0;
+            margin: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s ease, font-weight 0.3s ease;
+            position: relative;
+        }
+
+        .dropdown-btn:hover {
+            color: #AF1F24;
+            font-weight: bold;
+        }
+
+        .dropdown-arrow {
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            padding: 10px 0;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 8px 16px;
+            text-decoration: none;
+            display: block;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f5f5f5;
+            color: #AF1F24;
+        }
+
+        .dropdown.show .dropdown-content {
+            display: block;
+        }
+
+        .dropdown.show .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
         /* Hero Section */
         .hero-section {
             background: linear-gradient(135deg, #AF1F24 0%, #8a191d 100%);
@@ -293,6 +363,40 @@
         .result-message {
             font-size: 16px;
             opacity: 0.9;
+        }
+
+        /* WhatsApp Button Styling */
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: white;
+            color: #25D366;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+            border: 2px solid #25D366;
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-2px);
+            background: #25D366;
+            color: white;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            text-decoration: none;
+        }
+
+        .whatsapp-btn:active {
+            transform: translateY(0);
+        }
+
+        .whatsapp-icon {
+            font-size: 20px;
         }
 
         /* Program Details Section */
@@ -596,6 +700,48 @@
                 color: #333;
             }
 
+            .navbar .nav-links a:hover,
+            .navbar .nav-links a.active {
+                color: #AF1F24;
+            }
+
+            /* Mobile dropdown styles */
+            .dropdown {
+                margin: 15px 0;
+            }
+
+            .dropdown-btn {
+                margin: 0;
+                font-size: 18px;
+                justify-content: center;
+            }
+
+            .dropdown-content {
+                position: static;
+                display: none;
+                background-color: transparent;
+                box-shadow: none;
+                padding: 0;
+                margin-top: 10px;
+            }
+
+            .dropdown.show .dropdown-content {
+                display: block;
+            }
+
+            .dropdown-content a {
+                margin: 10px 0;
+                padding: 8px 0;
+                font-size: 16px;
+                text-align: center;
+                background-color: transparent;
+            }
+
+            .dropdown-content a:hover {
+                background-color: transparent;
+                color: #AF1F24;
+            }
+
             .mobile-button {
                 display: block;
                 margin-top: 20px;
@@ -682,7 +828,16 @@
         <div class="nav-links">
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
-            <a href="events.html">Events</a>
+            <div class="dropdown">
+                <button class="dropdown-btn">
+                    Portfolio
+                    <span class="dropdown-arrow">▼</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="events.html">Events</a>
+                    <a href="equity-research.html">Equity Research</a>
+                </div>
+            </div>
             <a href="contact.html">Contact</a>
             <div class="mobile-button">
                 <button onclick="window.location.href='internship.html'">Internship</button>
@@ -854,7 +1009,14 @@
                     resultDisplay.classList.add('result-accepted');
                     resultIcon.textContent = '🎉';
                     resultTitle.textContent = 'Congratulations!';
-                    resultMessage.textContent = 'You have been accepted for the GIBEI Internship Program. Check your email for further instructions.';
+                    resultMessage.innerHTML = `
+                        You have been accepted for the GIBEI Internship Program. Check your email for further instructions.
+                        <br><br>
+                        <a href="https://chat.whatsapp.com/I6bmw96Oh8P9OHTUaPCUnK" target="_blank" class="whatsapp-btn">
+                            <span class="whatsapp-icon">📱</span>
+                            Join WhatsApp Group
+                        </a>
+                    `;
                     
                     // Add confetti effect
                     createConfetti();
@@ -1015,6 +1177,29 @@
                 hamburger.classList.remove('active');
             });
         });
+
+        // Dropdown functionality
+        const dropdown = document.querySelector('.dropdown');
+        const dropdownBtn = document.querySelector('.dropdown-btn');
+
+        if (dropdown && dropdownBtn) {
+            dropdownBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                dropdown.classList.toggle('show');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!dropdown.contains(e.target)) {
+                    dropdown.classList.remove('show');
+                }
+            });
+
+            // Close dropdown when hamburger menu is clicked
+            hamburger.addEventListener('click', function() {
+                dropdown.classList.remove('show');
+            });
+        }
 
         // Add Font Awesome for icons
         const fontAwesome = document.createElement('link');

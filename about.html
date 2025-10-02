@@ -80,6 +80,11 @@
             vertical-align: middle;
         }
 
+        .navbar .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
         .navbar .nav-links a {
             margin: 0 20px;
             /* Adjusted margin */
@@ -102,6 +107,77 @@
             color: #AF1F24;
             font-weight: bold;
             /* Make bold on hover/active */
+        }
+
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-btn {
+            margin: 0 20px;
+            text-decoration: none;
+            color: #333;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s ease, font-weight 0.3s ease;
+            position: relative;
+            cursor: pointer;
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .dropdown-btn:hover,
+        .dropdown.active .dropdown-btn {
+            color: #AF1F24;
+            font-weight: bold;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            z-index: 1000;
+            padding: 10px 0;
+            margin-top: 10px;
+        }
+
+        .dropdown.active .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 20px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            margin: 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f8f9fa;
+            color: #AF1F24;
+        }
+
+        .dropdown-arrow {
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown.active .dropdown-arrow {
+            transform: rotate(180deg);
         }
 
         /* Underline animation */
@@ -531,6 +607,43 @@
                 color: #AF1F24;
             }
 
+            /* Mobile dropdown styles */
+            .dropdown {
+                margin: 15px 0;
+            }
+
+            .dropdown-btn {
+                margin: 0;
+                font-size: 18px;
+                justify-content: center;
+            }
+
+            .dropdown-content {
+                position: static;
+                display: none;
+                background-color: transparent;
+                box-shadow: none;
+                padding: 0;
+                margin-top: 10px;
+            }
+
+            .dropdown.show .dropdown-content {
+                display: block;
+            }
+
+            .dropdown-content a {
+                margin: 10px 0;
+                padding: 8px 0;
+                font-size: 16px;
+                text-align: center;
+                background-color: transparent;
+            }
+
+            .dropdown-content a:hover {
+                background-color: transparent;
+                color: #AF1F24;
+            }
+
             .journey-section,
             .vision-mission-section,
             .divisions-section {
@@ -761,7 +874,16 @@
         <div class="nav-links">
             <a href="index.html">Home</a>
             <a href="about.html" class="active">About</a>
-            <a href="events.html">Events</a>
+            <div class="dropdown">
+                <button class="dropdown-btn">
+                    Portfolio
+                    <span class="dropdown-arrow">▼</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="events.html">Events</a>
+                    <a href="equity-research.html">Equity Research</a>
+                </div>
+            </div>
             <a href="contact.html">Contact</a>
             <div class="mobile-button">
                 <button onclick="window.location.href='internship.html'">Internship</button>
@@ -872,6 +994,22 @@
     <div id="footer-placeholder"></div>
 
     <script>
+        // Dropdown functionality
+        const dropdown = document.querySelector('.dropdown');
+        const dropdownBtn = document.querySelector('.dropdown-btn');
+
+        dropdownBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            dropdown.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+
         // Hamburger menu functionality (copied from index.html)
         const hamburger = document.querySelector('.hamburger-menu');
         const navLinks = document.querySelector('.nav-links');
