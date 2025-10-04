@@ -45,6 +45,7 @@
             line-height: 1.6;
             overflow-x: hidden;
             background-color: #f8f9fa;
+            padding-top: 80px; /* Default padding for all screen sizes */
         }
 
         /* Global heading styles */
@@ -67,8 +68,10 @@
             top: 0;
             left: 0;
             right: 0;
-            z-index: 10;
+            z-index: 1000; /* Increased z-index */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease; /* Smooth transition */
+            pointer-events: auto; /* Ensure navbar is clickable */
         }
 
         .navbar .logo img {
@@ -137,7 +140,7 @@
             display: none;
             cursor: pointer;
             padding: 10px;
-            z-index: 100;
+            z-index: 1000; /* Increased z-index to match navbar */
         }
 
         .hamburger-menu span {
@@ -401,6 +404,10 @@
 
         /* Media Queries for Responsive Design */
         @media screen and (max-width: 1024px) {
+            body {
+                padding-top: 85px;
+            }
+
             .navbar {
                 padding: 18px 50px;
             }
@@ -415,10 +422,6 @@
         }
 
         @media screen and (max-width: 768px) {
-            body {
-                margin-top: 90px;
-            }
-            
             .navbar {
                 padding: 15px 20px;
             }
@@ -430,6 +433,8 @@
             .hamburger-menu {
                 display: block;
                 order: 2;
+                position: relative;
+                z-index: 1001; /* Ensure hamburger is above nav-links */
             }
 
             .nav-links {
@@ -441,11 +446,12 @@
                 bottom: 0;
                 background-color: rgba(255, 255, 255, 0.98);
                 padding: 80px 20px 20px;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
                 transition: all 0.3s ease;
+                z-index: 1000; /* Same as navbar */
             }
 
             .nav-links.active {
@@ -461,6 +467,7 @@
                 margin: 15px 0;
                 font-size: 18px;
                 color: #333;
+                text-align: center;
             }
 
             .navbar .nav-links a:hover,
@@ -498,11 +505,22 @@
                 grid-template-columns: repeat(2, 1fr);
                 gap: 20px;
             }
+
+            /* Mobile button styles */
+            .mobile-button {
+                display: block;
+                margin-top: 20px;
+            }
+
+            .mobile-button button {
+                width: 100%;
+                max-width: 250px;
+            }
         }
 
         @media screen and (max-width: 480px) {
             body {
-                margin-top: 75px;
+                padding-top: 80px; /* Adjusted for smaller mobile */
             }
             
             .navbar {
@@ -556,18 +574,6 @@
         .mobile-button button:hover {
             background-color: #8a191d;
         }
-
-        @media screen and (max-width: 768px) {
-            .mobile-button {
-                display: block;
-                margin-top: 20px;
-            }
-
-            .mobile-button button {
-                width: 100%;
-                max-width: 250px;
-            }
-        }
     </style>
 </head>
 
@@ -606,7 +612,7 @@
     </div>
 
     <!-- Research Filter -->
-    <div class="research-filter">
+    <!-- <div class="research-filter">
         <div class="filter-container">
             <button class="filter-btn active" data-filter="all">All Research</button>
             <button class="filter-btn" data-filter="banking">Banking</button>
@@ -615,7 +621,7 @@
             <button class="filter-btn" data-filter="mining">Mining</button>
             <button class="filter-btn" data-filter="property">Property</button>
         </div>
-    </div>
+    </div> -->
 
     <!-- Stats Section -->
     <div class="stats-section">
@@ -658,7 +664,7 @@
                     <div class="research-meta">
                         <div class="research-author">
                             <i class="fas fa-user"></i>
-                            GIBEI Research Team
+                            Equity Analysis Division
                         </div>
                         <a href="src/assets/research/bbca-research.pdf" target="_blank" class="research-btn">Download PDF</a>
                     </div>
@@ -704,7 +710,7 @@
                     <div class="research-meta">
                         <div class="research-author">
                             <i class="fas fa-user"></i>
-                            Tech Research Team
+                            Equity Analysis Division
                         </div>
                         <a href="src/assets/research/goto-research.pdf" target="_blank" class="research-btn">Download PDF</a>
                     </div>
@@ -727,7 +733,7 @@
                     <div class="research-meta">
                         <div class="research-author">
                             <i class="fas fa-user"></i>
-                            Commodity Research
+                            Equity Analysis Division
                         </div>
                         <a href="src/assets/research/inco-research.pdf" target="_blank" class="research-btn">Download PDF</a>
                     </div>
@@ -750,7 +756,7 @@
                     <div class="research-meta">
                         <div class="research-author">
                             <i class="fas fa-user"></i>
-                            Property Research
+                            Equity Analysis Division
                         </div>
                         <a href="src/assets/research/bsde-research.pdf" target="_blank" class="research-btn">Download PDF</a>
                     </div>
@@ -773,7 +779,7 @@
                     <div class="research-meta">
                         <div class="research-author">
                             <i class="fas fa-user"></i>
-                            Banking Research
+                            Equity Analysis Division
                         </div>
                         <a href="src/assets/research/bmri-research.pdf" target="_blank" class="research-btn">Download PDF</a>
                     </div>
@@ -785,100 +791,92 @@
     <div id="footer-placeholder"></div>
 
     <script>
+        // Hamburger menu functionality - EXACT copy from working index.html
+        const hamburger = document.querySelector('.hamburger-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        // Function to close mobile menu
+        function closeMobileMenu() {
+            navLinks.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+
+        // Toggle hamburger menu
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                closeMobileMenu();
+            }
+        });
+
+        // Close menu immediately when clicking on navigation links
+        const navItems = document.querySelectorAll('.nav-links a');
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                // Close menu immediately without delay
+                closeMobileMenu();
+            });
+        });
+
+        // Close menu when clicking on mobile button
+        const mobileButton = document.querySelector('.mobile-button button');
+        if (mobileButton) {
+            mobileButton.addEventListener('click', (e) => {
+                closeMobileMenu();
+            });
+        }
+
+        // Prevent menu from closing when clicking inside nav-links area (but not on links)
+        navLinks.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        // Research filtering functionality
         document.addEventListener('DOMContentLoaded', function() {
-            // Hamburger menu functionality
-            const hamburger = document.querySelector('.hamburger-menu');
-            const navLinks = document.querySelector('.nav-links');
-            
-            // Function to close mobile menu
-            function closeMobileMenu() {
-                if (navLinks && hamburger) {
-                    navLinks.classList.remove('active');
-                    hamburger.classList.remove('active');
-                }
-            }
-
-            // Ensure elements exist before adding event listeners
-            if (hamburger && navLinks) {
-                // Toggle hamburger menu
-                hamburger.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    navLinks.classList.toggle('active');
-                    hamburger.classList.toggle('active');
-                });
-
-                // Close menu when clicking outside
-                document.addEventListener('click', (e) => {
-                    if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
-                        closeMobileMenu();
-                    }
-                });
-
-                // Close menu immediately when clicking on navigation links
-                const navItems = document.querySelectorAll('.nav-links a');
-                navItems.forEach(item => {
-                    item.addEventListener('click', (e) => {
-                        // Prevent default briefly to ensure close happens first
-                        e.preventDefault();
-                        
-                        // Close menu immediately
-                        closeMobileMenu();
-                        
-                        // Navigate after a short delay to ensure menu closes
-                        setTimeout(() => {
-                            window.location.href = item.href;
-                        }, 50);
-                    });
-                });
-
-                // Close menu when clicking on mobile button
-                const mobileButton = document.querySelector('.mobile-button button');
-                if (mobileButton) {
-                    mobileButton.addEventListener('click', (e) => {
-                        closeMobileMenu();
-                    });
-                }
-
-                // Prevent menu from closing when clicking inside nav-links area (but not on links)
-                navLinks.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                });
-            }
-
-            // Research filtering functionality
             const filterBtns = document.querySelectorAll('.filter-btn');
             const researchCards = document.querySelectorAll('.research-card');
 
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    // Remove active class from all buttons
-                    filterBtns.forEach(b => b.classList.remove('active'));
-                    // Add active class to clicked button
-                    btn.classList.add('active');
+            if (filterBtns.length > 0 && researchCards.length > 0) {
+                filterBtns.forEach(function(btn) {
+                    btn.addEventListener('click', function() {
+                        // Remove active class from all buttons
+                        filterBtns.forEach(function(b) {
+                            b.classList.remove('active');
+                        });
+                        
+                        // Add active class to clicked button
+                        btn.classList.add('active');
 
-                    const filter = btn.getAttribute('data-filter');
+                        const filter = btn.getAttribute('data-filter');
 
-                    researchCards.forEach(card => {
-                        if (filter === 'all') {
-                            card.style.display = 'block';
-                        } else {
-                            const categories = card.getAttribute('data-category');
-                            if (categories.includes(filter)) {
+                        researchCards.forEach(function(card) {
+                            if (filter === 'all') {
                                 card.style.display = 'block';
                             } else {
-                                card.style.display = 'none';
+                                const categories = card.getAttribute('data-category');
+                                if (categories && categories.includes(filter)) {
+                                    card.style.display = 'block';
+                                } else {
+                                    card.style.display = 'none';
+                                }
                             }
-                        }
+                        });
                     });
                 });
-            });
+            }
 
             // Add Font Awesome for icons
             const fontAwesome = document.createElement('link');
             fontAwesome.rel = 'stylesheet';
             fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css';
             document.head.appendChild(fontAwesome);
-        }); // Close DOMContentLoaded
+        });
     </script>
     <script src="footer.js"></script>
 </body>
