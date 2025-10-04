@@ -507,6 +507,68 @@
             font-size: 14px;
         }
 
+        /* Scroll Animation Classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transition: all 0.8s ease-out;
+        }
+
+        .animate-on-scroll.animate-in {
+            opacity: 1;
+        }
+
+        /* Feature Cards Animation */
+        .feature-card {
+            transform: translateX(-100px);
+        }
+
+        .feature-card.animate-in {
+            transform: translateX(0);
+        }
+
+        .feature-card:nth-child(even) {
+            transform: translateX(100px);
+        }
+
+        .feature-card:nth-child(even).animate-in {
+            transform: translateX(0);
+        }
+
+        /* Timeline Items Animation */
+        .timeline-item {
+            transform: translateX(-150px);
+            transition-delay: 0.2s;
+        }
+
+        .timeline-item.animate-in {
+            transform: translateX(0);
+        }
+
+        .timeline-item:nth-child(even) {
+            transform: translateX(150px);
+        }
+
+        .timeline-item:nth-child(even).animate-in {
+            transform: translateX(0);
+        }
+
+        /* Section Headers Animation */
+        .section-header {
+            transform: translateY(-50px);
+        }
+
+        .section-header.animate-in {
+            transform: translateY(0);
+        }
+
+        /* Stagger Animation Delays */
+        .animate-on-scroll:nth-child(1) { transition-delay: 0.1s; }
+        .animate-on-scroll:nth-child(2) { transition-delay: 0.2s; }
+        .animate-on-scroll:nth-child(3) { transition-delay: 0.3s; }
+        .animate-on-scroll:nth-child(4) { transition-delay: 0.4s; }
+        .animate-on-scroll:nth-child(5) { transition-delay: 0.5s; }
+        .animate-on-scroll:nth-child(6) { transition-delay: 0.6s; }
+
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -778,43 +840,43 @@
     <!-- Program Details Section -->
     <div class="program-details">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header animate-on-scroll">
                 <h2>Program Highlights</h2>
                 <p>Our internship program is designed to provide students with comprehensive exposure to the financial industry, combining theoretical knowledge with practical experience.</p>
             </div>
 
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-card animate-on-scroll">
                     <div class="feature-icon">💼</div>
                     <h3>Practical Learning</h3>
                     <p>Work closely with senior members of GIBEI and gain exposure to the basics of investment analysis, portfolio insights, and financial research within a supportive learning environment.</p>
                 </div>
 
-                <div class="feature-card">
+                <div class="feature-card animate-on-scroll">
                     <div class="feature-icon">📊</div>
                     <h3>Investment Knowledge Training</h3>
                     <p>Explore key concepts in capital markets, equity research, and financial modeling through structured modules and interactive sessions.</p>
                 </div>
 
-                <div class="feature-card">
+                <div class="feature-card animate-on-scroll">
                     <div class="feature-icon">🎓</div>
                     <h3>Peer Mentorship</h3>
                     <p>Receive guidance from experienced GIBEI seniors and alumni who will help you navigate the program and support your growth in the world of investment.</p>
                 </div>
 
-                <div class="feature-card">
+                <div class="feature-card animate-on-scroll">
                     <div class="feature-icon">🌐</div>
                     <h3>Networking Opportunities</h3>
                     <p>Build strong connections with senior members and fellow interns, fostering relationships that can support your academic and professional journey.</p>
                 </div>
 
-                <div class="feature-card">
+                <div class="feature-card animate-on-scroll">
                     <div class="feature-icon">📜</div>
                     <h3>Certification</h3>
                     <p>Earn an official certificate of completion from GIBEI, recognizing your participation and achievements throughout the program.</p>
                 </div>
 
-                <div class="feature-card">
+                <div class="feature-card animate-on-scroll">
                     <div class="feature-icon">⭐</div>
                     <h3>Future Opportunities</h3>
                     <p>While this program does not provide financial compensation or direct career placements, participants may be given priority consideration when applying to become GIBEI staff in the following year.</p>
@@ -826,13 +888,13 @@
     <!-- Timeline Section -->
     <div class="timeline-section">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header animate-on-scroll">
                 <h2>Program Timeline</h2>
                 <p>Our structured 2-month internship program is designed to gradually introduce you to the investment world and strengthen your foundational skills.</p>
             </div>
 
             <div class="timeline">
-                <div class="timeline-item">
+                <div class="timeline-item animate-on-scroll">
                     <div class="timeline-content">
                         <div class="timeline-date">Week 1-2</div>
                         <div class="timeline-title">Orientation & Basics</div>
@@ -840,7 +902,7 @@
                     </div>
                 </div>
 
-                <div class="timeline-item">
+                <div class="timeline-item animate-on-scroll">
                     <div class="timeline-content">
                         <div class="timeline-date">Week 3-4</div>
                         <div class="timeline-title">Core Learning</div>
@@ -848,7 +910,7 @@
                     </div>
                 </div>
 
-                <div class="timeline-item">
+                <div class="timeline-item animate-on-scroll">
                     <div class="timeline-content">
                         <div class="timeline-date">Week 5-6</div>
                         <div class="timeline-title">Applied Practice</div>
@@ -856,7 +918,7 @@
                     </div>
                 </div>
 
-                <div class="timeline-item">
+                <div class="timeline-item animate-on-scroll">
                     <div class="timeline-content">
                         <div class="timeline-date">Week 7-8</div>
                         <div class="timeline-title">Networking & Reflection</div>
@@ -870,6 +932,28 @@
     <div id="footer-placeholder"></div>
 
     <script>
+        // Scroll Animation Observer
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with animate-on-scroll class
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('.animate-on-scroll');
+            animateElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+
         // Sample data for demonstration - in real application, this would come from a server
         const acceptedStudents = [
             '1301190001', '1301190015', '1301190023', '1301190045', '1301190067',

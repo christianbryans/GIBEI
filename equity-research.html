@@ -140,7 +140,8 @@
             display: none;
             cursor: pointer;
             padding: 10px;
-            z-index: 1000; /* Increased z-index to match navbar */
+            z-index: 1001; /* Higher than nav-links */
+            position: relative;
         }
 
         .hamburger-menu span {
@@ -434,11 +435,11 @@
                 display: block;
                 order: 2;
                 position: relative;
-                z-index: 1001; /* Ensure hamburger is above nav-links */
+                z-index: 1002; /* Ensure hamburger is clickable above everything */
             }
 
             .nav-links {
-                display: none;
+                display: flex;
                 position: fixed;
                 top: 0;
                 left: 0;
@@ -451,11 +452,18 @@
                 align-items: center;
                 justify-content: center;
                 transition: all 0.3s ease;
-                z-index: 1000; /* Same as navbar */
+                z-index: 999; /* Lower than hamburger */
+                /* Hidden by default */
+                transform: translateX(100%);
+                visibility: hidden;
+                opacity: 0;
             }
 
             .nav-links.active {
-                display: flex;
+                /* Show when active */
+                transform: translateX(0);
+                visibility: visible;
+                opacity: 1;
             }
 
             .nav-links .mobile-button {
@@ -791,27 +799,63 @@
     <div id="footer-placeholder"></div>
 
     <script>
-        // Hamburger menu functionality - EXACT copy from working index.html
+        // Force close menu on page load - before any other scripts
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger-menu');
+            
+            // Force close menu immediately
+            if (navLinks) {
+                navLinks.classList.remove('active');
+            }
+            if (hamburger) {
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Hamburger menu functionality - Enhanced version
         const hamburger = document.querySelector('.hamburger-menu');
         const navLinks = document.querySelector('.nav-links');
 
         // Function to close mobile menu
         function closeMobileMenu() {
-            navLinks.classList.remove('active');
-            hamburger.classList.remove('active');
+            if (navLinks && hamburger) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = ''; // Restore scroll
+            }
+        }
+
+        // Function to open mobile menu
+        function openMobileMenu() {
+            if (navLinks && hamburger) {
+                navLinks.classList.add('active');
+                hamburger.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent scroll
+            }
         }
 
         // Toggle hamburger menu
-        hamburger.addEventListener('click', (e) => {
-            e.stopPropagation();
-            navLinks.classList.toggle('active');
-            hamburger.classList.toggle('active');
-        });
+        if (hamburger) {
+            hamburger.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Hamburger clicked'); // Debug log
+                
+                if (navLinks.classList.contains('active')) {
+                    closeMobileMenu();
+                } else {
+                    openMobileMenu();
+                }
+            });
+        }
 
         // Close menu when clicking outside
         document.addEventListener('click', (e) => {
-            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
-                closeMobileMenu();
+            if (navLinks && navLinks.classList.contains('active')) {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    closeMobileMenu();
+                }
             }
         });
 
@@ -833,8 +877,19 @@
         }
 
         // Prevent menu from closing when clicking inside nav-links area (but not on links)
-        navLinks.addEventListener('click', (e) => {
-            e.stopPropagation();
+        if (navLinks) {
+            navLinks.addEventListener('click', (e) => {
+                if (e.target === navLinks) {
+                    e.stopPropagation();
+                }
+            });
+        }
+
+        // Force close on window resize to mobile
+        window.addEventListener('resize', function() {
+            if (window.innerWidth <= 768) {
+                closeMobileMenu();
+            }
         });
 
         // Research filtering functionality
