@@ -220,17 +220,33 @@
             background: rgba(255, 255, 255, 0.1);
             color: white;
             font-size: 16px;
+            font-family: 'Manrope', sans-serif;
             transition: all 0.3s ease;
+            letter-spacing: 1px;
         }
 
         .input-group input::placeholder {
             color: rgba(255, 255, 255, 0.6);
+            letter-spacing: normal;
         }
 
         .input-group input:focus {
             outline: none;
             border-color: rgba(255, 255, 255, 0.8);
             background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .input-group input.error {
+            border-color: #ff6b6b;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        .input-helper {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 5px;
+            text-align: left;
         }
 
         .check-btn {
@@ -822,7 +838,8 @@
                 <h3>Check Your Application Status</h3>
                 <div class="input-group">
                     <label for="studentId">Student ID (NIM)</label>
-                    <input type="text" id="studentId" placeholder="Enter your Student ID" maxlength="10">
+                    <input type="text" id="studentId" placeholder="Enter your 12-digit Student ID" maxlength="12" pattern="\d{12}">
+                    <!-- <div class="input-helper">Format: 12 digits (e.g., 104012400192)</div> -->
                 </div>
                 <button class="check-btn" onclick="checkStatus()">
                     <span id="btnText">Check Status</span>
@@ -954,7 +971,7 @@
             });
         });
 
-        // Sample data for demonstration - in real application, this would come from a server
+        // Student data arrays - ensure proper formatting
         const acceptedStudents = [
             // Staff Sekjen
             '105032430020', '104012400192',
@@ -984,7 +1001,6 @@
             '104042400109', '104012400055', '101012400313'
         ];
 
-
         const rejectedStudents = [
             '104022500007',
             '104042430022',
@@ -1005,7 +1021,6 @@
             '101032400060'
         ];
 
-
         function checkStatus() {
             const studentId = document.getElementById('studentId').value.trim();
             const resultDisplay = document.getElementById('resultDisplay');
@@ -1014,8 +1029,19 @@
             const resultMessage = document.getElementById('resultMessage');
             const btnText = document.getElementById('btnText');
 
+            // Debug logging
+            console.log('Checking Student ID:', studentId);
+            console.log('Accepted Students:', acceptedStudents);
+            console.log('Rejected Students:', rejectedStudents);
+
             if (!studentId) {
                 alert('Please enter your Student ID');
+                return;
+            }
+
+            // Input validation - ensure it's numeric and correct length
+            if (!/^\d{12}$/.test(studentId)) {
+                alert('Please enter a valid 12-digit Student ID');
                 return;
             }
 
@@ -1027,15 +1053,22 @@
             setTimeout(() => {
                 resultDisplay.classList.remove('show', 'result-accepted', 'result-rejected', 'result-not-found');
                 
-                if (acceptedStudents.includes(studentId)) {
+                // Check if student ID exists in accepted list
+                const isAccepted = acceptedStudents.includes(studentId);
+                const isRejected = rejectedStudents.includes(studentId);
+                
+                console.log('Is Accepted:', isAccepted);
+                console.log('Is Rejected:', isRejected);
+                
+                if (isAccepted) {
                     // Accepted
                     resultDisplay.classList.add('result-accepted');
                     resultIcon.textContent = '🎉';
                     resultTitle.textContent = 'Congratulations!';
                     resultMessage.innerHTML = `
-                        You have been accepted for the GIBEI Internship Program. Check your email for further instructions.
+                        You have been accepted for the GIBEI Internship Program. Join the group by tapping the button below.
                         <br><br>
-                        <a href="https://chat.whatsapp.com/I6bmw96Oh8P9OHTUaPCUnK" target="_blank" class="whatsapp-btn">
+                        <a href="https://chat.whatsapp.com/HdyOnN6dGEN5PhOnhPvlJo" target="_blank" class="whatsapp-btn">
                             <span class="whatsapp-icon">📱</span>
                             Join WhatsApp Group
                         </a>
@@ -1043,7 +1076,7 @@
                     
                     // Add confetti effect
                     createConfetti();
-                } else if (rejectedStudents.includes(studentId)) {
+                } else if (isRejected) {
                     // Rejected
                     resultDisplay.classList.add('result-rejected');
                     resultIcon.textContent = '😔';
@@ -1172,6 +1205,45 @@
         document.getElementById('studentId').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 checkStatus();
+            }
+        });
+
+        // Real-time input validation
+        document.getElementById('studentId').addEventListener('input', function(e) {
+            const input = e.target;
+            const value = input.value;
+            
+            // Remove non-numeric characters
+            const numericOnly = value.replace(/\D/g, '');
+            
+            // Update input with numeric only
+            if (numericOnly !== value) {
+                input.value = numericOnly;
+            }
+            
+            // Remove error class when user starts typing correctly
+            if (numericOnly.length <= 12) {
+                input.classList.remove('error');
+            }
+            
+            // Add visual feedback for valid length
+            if (numericOnly.length === 12) {
+                input.style.borderColor = 'rgba(76, 175, 80, 0.8)';
+            } else {
+                input.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+            }
+        });
+
+        // Enhanced validation on blur
+        document.getElementById('studentId').addEventListener('blur', function(e) {
+            const input = e.target;
+            const value = input.value;
+            
+            if (value && value.length !== 12) {
+                input.classList.add('error');
+                setTimeout(() => {
+                    input.classList.remove('error');
+                }, 1000);
             }
         });
 
